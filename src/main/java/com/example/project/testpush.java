@@ -1,7 +1,7 @@
 package com.example.project;
 
-public class Main {
+public class testpush {
     public static void main(String[] args){
-        System.out.println("Hi");
+        System.out.println("men");
     }
 }
