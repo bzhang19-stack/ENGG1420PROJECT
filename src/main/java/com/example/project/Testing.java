@@ -1,3 +1,5 @@
+package com.example.project;
+
 public class Testing {
 
 class Main {
