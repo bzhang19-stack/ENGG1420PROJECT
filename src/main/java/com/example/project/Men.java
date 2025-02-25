@@ -1,7 +1,7 @@
 package com.example.project;
 
-public class MONKEY {
+public class Men {
     public static void main(String[] args){
-        System.out.println("tspmo");
+        System.out.println("MEN");
     }
 }
