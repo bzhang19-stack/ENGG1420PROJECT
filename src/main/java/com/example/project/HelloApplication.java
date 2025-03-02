@@ -2,90 +2,94 @@ package com.example.project;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Alert;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class HelloApplication extends Application {
+import java.util.List;
 
-    private final String validEmail = "user@example.com";
-    private final String validPassword = "password123";
+public class HelloApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        Student_Data.initializeStudents(); // Ensure students are loaded
         showDefaultMenu(primaryStage);
-
-
     }
-
+//Default menu
     private void showDefaultMenu(Stage primaryStage) {
-        // Create buttons
         Button loginButton = new Button("Go to Login");
-
-        // Action for the login button
         loginButton.setOnAction(e -> showLoginScene(primaryStage));
 
-        // Set up the layout and scene for the default menu
-        StackPane defaultMenuLayout = new StackPane();
-        defaultMenuLayout.getChildren().add(loginButton);
-
+        StackPane defaultMenuLayout = new StackPane(loginButton);
         Scene defaultMenuScene = new Scene(defaultMenuLayout, 300, 200);
 
         primaryStage.setTitle("Default Menu");
         primaryStage.setScene(defaultMenuScene);
         primaryStage.show();
     }
-
+//When clicking go to login
     private void showLoginScene(Stage primaryStage) {
-        // Create text fields for username and password
-        TextField usernameField = new TextField();
-        usernameField.setPromptText("Enter Username");  // Placeholder text
+        TextField emailField = new TextField();
+        emailField.setPromptText("Enter Email");
 
         PasswordField passwordField = new PasswordField();
-        passwordField.setPromptText("Enter Password");  // Placeholder text
+        passwordField.setPromptText("Enter Password (Ignored)");
 
-        // Create a login button
         Button loginButton = new Button("Login");
 
-        // Action for login button
         loginButton.setOnAction(e -> {
-            String username = usernameField.getText();
-            String password = passwordField.getText();
+            String enteredEmail = emailField.getText();
 
-            if (username.equals(validEmail) && password.equals(validPassword)) {
-                // Success: Show a success alert
-                displayAlert(Alert.AlertType.INFORMATION, "Login Success", "You have successfully logged in!");
+            if (validateStudentEmail(enteredEmail)) {
+                showAlert(Alert.AlertType.INFORMATION, "Login Success", "Welcome, student!");
+                showWelcomeScreen(primaryStage);
             } else {
-                // Failure: Show an error alert
-                displayAlert(Alert.AlertType.ERROR, "Login Failed", "Invalid email or password.");
+                showAlert(Alert.AlertType.ERROR, "Login Failed", "Email not found.");
             }
         });
 
-        // Create a VBox layout to arrange the elements vertically
-        VBox loginLayout = new VBox(10); // 10px spacing
-        loginLayout.getChildren().addAll(usernameField, passwordField, loginButton);
+        VBox loginLayout = new VBox(10, emailField, passwordField, loginButton);
+        loginLayout.setStyle("-fx-padding: 20;");
 
-        // Set up the scene with the VBox layout
         Scene loginScene = new Scene(loginLayout, 300, 200);
 
         primaryStage.setTitle("Login");
         primaryStage.setScene(loginScene);
     }
+//when logged on goes to here!
+    private void showWelcomeScreen(Stage primaryStage) {
+        Label welcomeLabel = new Label("Welcome to Webadvisor Application!");
+        Button logoutButton = new Button("Logout");
+        logoutButton.setOnAction(e -> showDefaultMenu(primaryStage));
 
-    private void displayAlert(Alert.AlertType alertType, String title, String content) {
+        VBox welcomeLayout = new VBox(10, welcomeLabel, logoutButton);
+        welcomeLayout.setStyle("-fx-padding: 20;");
+
+        Scene welcomeScene = new Scene(welcomeLayout, 300, 200);
+        primaryStage.setTitle("Welcome");
+        primaryStage.setScene(welcomeScene);
+    }
+
+    private void showAlert(Alert.AlertType alertType, String title, String content) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setContentText(content);
         alert.showAndWait();
     }
 
+    // Validate email against student list from Student_Data
+    private boolean validateStudentEmail(String email) {
+        List<Student_Data> students = Student_Data.getAllStudents();
+        for (Student_Data student : students) {
+            if (student.validateEmail(email)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-        public static void main(String[] args) {
-
+    public static void main(String[] args) {
         launch(args);
     }
 }
