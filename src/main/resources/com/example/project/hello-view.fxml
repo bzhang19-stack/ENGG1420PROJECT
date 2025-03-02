@@ -12,6 +12,6 @@
    <Circle fill="DODGERBLUE" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
 
     <Label fx:id="welcomeText" />
-   <Button mnemonicParsing="false" />
+   <Button mnemonicParsing="false" text="Login" />
     <Button onAction="#onHelloButtonClick" text="nothing" />
 </VBox>
