@@ -29,9 +29,9 @@ public class Student_Data {
     // Getter methods
     public String getEmail() { return email; }
 
-    // Method to check if an email exists
-    public boolean validateEmail(String inputEmail) {
-        return this.email.equalsIgnoreCase(inputEmail);
+    // Method to check if an email matches password (Student ID)
+    public boolean validateLogin(String inputEmail, String inputPassword) {
+        return this.email.equalsIgnoreCase(inputEmail) && this.studentId.equals(inputPassword);
     }
 
     // Method to initialize student data

@@ -40,12 +40,13 @@ public class HelloApplication extends Application {
 
         loginButton.setOnAction(e -> {
             String enteredEmail = emailField.getText();
+            String enteredPassword = passwordField.getText();
 
-            if (validateStudentEmail(enteredEmail)) {
+            if (validateStudentLogin(enteredEmail, enteredPassword)) {
                 showAlert(Alert.AlertType.INFORMATION, "Login Success", "Welcome, student!");
                 showWelcomeScreen(primaryStage);
             } else {
-                showAlert(Alert.AlertType.ERROR, "Login Failed", "Email not found.");
+                showAlert(Alert.AlertType.ERROR, "Login Failed", "Incorrect email or password.");
             }
         });
 
@@ -78,16 +79,17 @@ public class HelloApplication extends Application {
         alert.showAndWait();
     }
 
-    // Validate email against student list from Student_Data
-    private boolean validateStudentEmail(String email) {
+    // Validate email and password (Student ID) against student list from Student_Data
+    private boolean validateStudentLogin(String email, String password) {
         List<Student_Data> students = Student_Data.getAllStudents();
         for (Student_Data student : students) {
-            if (student.validateEmail(email)) {
+            if (student.validateLogin(email, password)) {
                 return true;
             }
         }
         return false;
     }
+
 
     public static void main(String[] args) {
         launch(args);
