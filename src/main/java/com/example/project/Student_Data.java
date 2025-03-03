@@ -30,8 +30,8 @@ public class Student_Data {
     public String getEmail() { return email; }
 
     // Method to check if an email matches password (Student ID)
-    public boolean validateLogin(String inputEmail, String inputPassword) {
-        return this.email.equalsIgnoreCase(inputEmail) && this.studentId.equals(inputPassword);
+    public boolean validateLogin(String email, String studentId) {
+        return this.email.equals(email) && this.studentId.equals(studentId);
     }
 
     // Method to initialize student data
