@@ -1,18 +1,23 @@
 package com.example.project;
 //imports
+
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 public class HelloApplication extends Application {
 //taking in the arraylist from studentdata.java to parse the correct list of emails for authentication
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws IOException {
         Student_Data.initializeStudents(); // Ensure students are loaded
         showDefaultMenu(primaryStage);
     }
@@ -34,7 +39,7 @@ public class HelloApplication extends Application {
         emailField.setPromptText("Enter Email");
 
         PasswordField passwordField = new PasswordField();
-        passwordField.setPromptText("Enter Password (Ignored for now)");
+        passwordField.setPromptText("Enter Password (Student ID for now)");
 
         Button loginButton = new Button("Login");
 //validating the student login
@@ -49,7 +54,7 @@ public class HelloApplication extends Application {
                 showAlert(Alert.AlertType.ERROR, "Login Failed", "Incorrect email or password.");
             }
         });
-//creating the sccreen for the login
+//creating the screen for the login
         VBox loginLayout = new VBox(10, emailField, passwordField, loginButton);
         loginLayout.setStyle("-fx-padding: 20;");
 
@@ -80,6 +85,12 @@ public class HelloApplication extends Application {
         GoBackButton.setOnAction(e -> showWelcomeScreen(primaryStage));
 
 
+    }
+    private void adminMenu(Stage primaryStage) throws IOException { //admin menu from fxml file
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("adminDashboard.fxml")));
+        Scene menuScene = new Scene(root);
+        primaryStage.setScene(menuScene);
+        //primaryStage.show();
     }
 //alert if the entered email is inocrrect
     private void showAlert(Alert.AlertType alertType, String title, String content) {
