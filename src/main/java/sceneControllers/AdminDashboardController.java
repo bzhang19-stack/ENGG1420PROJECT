@@ -9,7 +9,7 @@ import javafx.scene.control.Label;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class AdminMenuController implements Initializable{
+public class AdminDashboardController implements Initializable{
     @FXML
     private ChoiceBox<String> dropdownMenu;
     private Label adminMenuLabel;

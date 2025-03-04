@@ -87,7 +87,7 @@ public class HelloApplication extends Application {
 
     }
     private void adminMenu(Stage primaryStage) throws IOException { //admin menu from fxml file
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("adminMenu.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("adminDashboard.fxml")));
         Scene menuScene = new Scene(root);
         primaryStage.setScene(menuScene);
         //primaryStage.show();
