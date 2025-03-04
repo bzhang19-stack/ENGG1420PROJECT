@@ -1,9 +1,8 @@
-package com.example.project;
+package sceneControllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
 
 import java.net.URL;
 import java.util.ResourceBundle;

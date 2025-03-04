@@ -1,5 +1,6 @@
 package com.example.project;
 //imports
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -34,7 +35,7 @@ public class HelloApplication extends Application {
         emailField.setPromptText("Enter Email");
 
         PasswordField passwordField = new PasswordField();
-        passwordField.setPromptText("Enter Password (Ignored for now)");
+        passwordField.setPromptText("Enter Password (Student ID for now)");
 
         Button loginButton = new Button("Login");
 //validating the student login
