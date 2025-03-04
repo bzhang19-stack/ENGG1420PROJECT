@@ -7,10 +7,10 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Pane id="adminMenuPane1" fx:id="adminMenuLabel" prefHeight="400.0" prefWidth="600.0">
+      <Pane id="adminMenuPane1" fx:id="adminDashboardLabel" prefHeight="400.0" prefWidth="600.0">
          <children>
-            <ChoiceBox fx:id="adminMenuDropdown" prefHeight="0.0" prefWidth="1.0" />
-            <Label fx:id="menuLabel" layoutX="250.0" layoutY="59.0" text="You've selected" />
+            <ChoiceBox id="adminDropdownMenu" fx:id="adminDashboardDropdown" focusTraversable="false" prefHeight="25.0" prefWidth="181.0" />
+            <Label fx:id="menuLabel" alignment="CENTER" layoutX="209.0" layoutY="17.0" text="Select where you want to navigate" textAlignment="CENTER" />
          </children>
       </Pane>
    </children>

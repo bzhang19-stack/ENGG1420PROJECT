@@ -12,16 +12,18 @@ import java.util.ResourceBundle;
 public class AdminDashboardController implements Initializable{
     @FXML
     private ChoiceBox<String> dropdownMenu;
-    private Label adminMenuLabel;
+    @FXML
+    private Label adminDashboardLabel;
+
     private final String[] options = {"Dashboard","Subject Management","Course Management","Student Management","Faculty Management","Even Management"}; // Options in choice box
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle){
+    public void initialize(URL arg0, ResourceBundle arg1){
         dropdownMenu.getItems().addAll(options); // Populates choice box with options
     }
 
     public void getSelection(ActionEvent event){
         String selection = dropdownMenu.getValue();
-        adminMenuLabel.setText("You have selected: "+selection);
+        adminDashboardLabel.setText("You have selected: "+selection);
     }
 }
