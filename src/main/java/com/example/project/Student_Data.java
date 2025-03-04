@@ -27,7 +27,17 @@ public class Student_Data {
     }
 
     // Getter methods
-    public String getEmail() { return email; }
+    public String getEmail() {
+        return email;
+    }
+
+    public String getStudentId() {
+        return studentId;
+    }
+
+    public String getName() {
+        return name;
+    }
 
     // Method to check if an email matches password (Student ID)
     public boolean validateLogin(String email, String studentId) {

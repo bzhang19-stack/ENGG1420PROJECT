@@ -90,11 +90,35 @@ public class HelloApplication extends Application {
     }
 
     private void Accountview(Stage primaryStage) {
-        Label welcomeLabel = new Label("Here are the account details admin!");
-        Button GoBackButton = new Button("Go Back");
-        GoBackButton.setOnAction(e -> showWelcomeScreen(primaryStage));
+        Label welcomeLabel = new Label("Here are the account details, admin!");
+        Button goBackButton = new Button("Go Back");
+        goBackButton.setOnAction(e -> showWelcomeScreen(primaryStage));
 
+        // Create a TextArea to display student data
+        TextArea studentDataArea = new TextArea();
+        studentDataArea.setEditable(false);  // Make it read-only
+        studentDataArea.setPrefSize(400, 300); // Set preferred size
 
+        // Retrieve and format student data
+        List<Student_Data> students = Student_Data.getAllStudents();
+        StringBuilder studentData = new StringBuilder();
+
+        studentData.append(String.format("%-15s %-20s %-30s%n", "Student ID", "Name", "Email"));
+        studentData.append("------------------------------------------------------------\n");
+
+        for (Student_Data student : students) {
+            studentData.append(String.format("%-15s %-20s %-30s%n",
+                    student.getStudentId(), student.getName(), student.getEmail()));
+        }
+
+        studentDataArea.setText(studentData.toString());
+
+        VBox accountViewLayout = new VBox(10, welcomeLabel, studentDataArea, goBackButton);
+        accountViewLayout.setStyle("-fx-padding: 20;");
+
+        Scene accountViewScene = new Scene(accountViewLayout, 500, 400);
+        primaryStage.setTitle("Student List");
+        primaryStage.setScene(accountViewScene);
     }
     private void adminMenu(Stage primaryStage) throws IOException { //admin menu from fxml file
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("adminDashboard.fxml")));
