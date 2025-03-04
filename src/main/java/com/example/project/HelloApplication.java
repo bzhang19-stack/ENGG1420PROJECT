@@ -18,6 +18,7 @@ public class HelloApplication extends Application {
     public void start(Stage primaryStage) throws IOException {
         Student_Data.initializeStudents(); // Ensure students are loaded
         showDefaultMenu(primaryStage);
+        //adminMenu(primaryStage);
     }
 //Default menu
     private void showDefaultMenu(Stage primaryStage) {
@@ -40,6 +41,7 @@ public class HelloApplication extends Application {
         passwordField.setPromptText("Enter Password (Student ID for now)");
 
         Button loginButton = new Button("Login");
+
 //validating the student login
         loginButton.setOnAction(e -> {
             String enteredEmail = emailField.getText();
@@ -88,7 +90,7 @@ public class HelloApplication extends Application {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("adminDashboard.fxml")));
         Scene menuScene = new Scene(root);
         primaryStage.setScene(menuScene);
-        //primaryStage.show();
+        primaryStage.show();
     }
 //alert if the entered email is inocrrect
     private void showAlert(Alert.AlertType alertType, String title, String content) {

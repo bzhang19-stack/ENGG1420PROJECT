@@ -14,7 +14,7 @@ public class AdminDashboardController implements Initializable{
     @FXML
     private Label adminDashboardLabel;
 
-    private final String[] options = {"Dashboard","Subject Management","Course Management","Student Management","Faculty Management","Even Management"}; // Options in choice box
+    private String[] options = {"Dashboard","Subject Management","Course Management","Student Management","Faculty Management","Even Management"}; // Options in choice box
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1){
