@@ -8,7 +8,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import sceneControllers.*;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;

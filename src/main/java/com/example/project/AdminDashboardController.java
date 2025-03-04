@@ -1,4 +1,4 @@
-package sceneControllers;
+package com.example.project;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
