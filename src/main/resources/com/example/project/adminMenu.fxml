@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ChoiceBox fx:id="adminMenuDropdown" layoutX="14.0" layoutY="14.0" prefWidth="150.0" />
+      <Pane id="adminMenuPane1" fx:id="adminMenuLabel" prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <ChoiceBox fx:id="adminMenuDropdown" prefHeight="0.0" prefWidth="1.0" />
+            <Label fx:id="menuLabel" layoutX="250.0" layoutY="59.0" text="You've selected" />
+         </children>
+      </Pane>
    </children>
 </AnchorPane>
