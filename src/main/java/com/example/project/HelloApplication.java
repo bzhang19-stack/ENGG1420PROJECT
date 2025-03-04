@@ -23,11 +23,21 @@ public class HelloApplication extends Application {
     }
 //Default menu
     private void showDefaultMenu(Stage primaryStage) {
-        Button loginButton = new Button("Go to Login");
-        loginButton.setOnAction(e -> showLoginScene(primaryStage));
+        Button loginButtonUser = new Button("User login");
+        Button loginButtonAdmin = new Button("Admin login");
 
-        StackPane defaultMenuLayout = new StackPane(loginButton);
-        Scene defaultMenuScene = new Scene(defaultMenuLayout, 300, 200);
+        loginButtonUser.setOnAction(e -> showLoginScene(primaryStage));
+        loginButtonAdmin.setOnAction(e -> showLoginScene(primaryStage));
+
+        StackPane defaultMenuLayout = new StackPane(loginButtonAdmin, loginButtonUser);
+        Scene defaultMenuScene = new Scene(defaultMenuLayout, 500, 500);
+
+       loginButtonAdmin.setTranslateX(100);
+       loginButtonAdmin.setTranslateY(50);
+
+        loginButtonUser.setTranslateX(100);
+        loginButtonUser.setTranslateY(0);
+
 
         primaryStage.setTitle("Default Menu");
         primaryStage.setScene(defaultMenuScene);
