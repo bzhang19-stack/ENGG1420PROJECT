@@ -97,28 +97,31 @@ public class HelloApplication extends Application {
     private void studentScene(Stage primaryStage) {
         // Create components
         Label portalLabel = new Label("Student Portal");
+        portalLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
         Button backButton = new Button("Go back");
-
-        // Set action for back button
         backButton.setOnAction(e -> showWelcomeScreen(primaryStage));
 
-        // Create layout to hold the components
-        VBox layout = new VBox(10, portalLabel);
+        //Create Grades button
+        Button gradesButton = new Button("Grades\n Semester Grades");
+        gradesButton.setMinSize(300, 100); // Set width and height
+        gradesButton.setStyle("-fx-background-color: #f8f8f8; -fx-border-color: #d3d3d3; -fx-font-size: 14px; -fx-text-alignment: center;");
+        //test print message
+        gradesButton.setOnAction(e -> System.out.println("Grade button check"));
+        // Create layout
+        VBox layout = new VBox(10, portalLabel, gradesButton);
         layout.setAlignment(Pos.TOP_CENTER);  // Keep the label at the top
         layout.setPadding(new Insets(20));
 
-// Create StackPane as the root layout
+//  StackPane as root layout
         StackPane root = new StackPane();
         root.getChildren().addAll(layout, backButton);
 
-// Position the go back at in bottomleft
+// Position the go back in bottomleft
         StackPane.setAlignment(backButton, Pos.BOTTOM_LEFT);
         StackPane.setMargin(backButton, new Insets(10, 0, 10, 10));  // Adds spacing
 
 
         Scene portalScene = new Scene(root, 800, 500);
-
-
         primaryStage.setScene(portalScene);
         primaryStage.setTitle("Student Portal");
     }
