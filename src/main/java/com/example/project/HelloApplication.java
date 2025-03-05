@@ -33,6 +33,7 @@ public class HelloApplication extends Application {
         primaryStage.setScene(defaultMenuScene);
         primaryStage.show();
     }
+
 //When clicking go to login
     private void showLoginScene(Stage primaryStage) {
         TextField emailField = new TextField();
@@ -68,24 +69,44 @@ public class HelloApplication extends Application {
         Label welcomeLabel = new Label("Welcome to Webadvisor Application!");
         Button logoutButton = new Button("Logout");
         Button Adminaccountview = new Button("Accountdata");
+        Button portalSceneButton = new Button("Student Portal");
         logoutButton.setOnAction(e -> showDefaultMenu(primaryStage));
         Adminaccountview.setOnAction(e -> Accountview(primaryStage));
+        portalSceneButton.setOnAction(e -> Studentscene(primaryStage));
 
-        VBox welcomeLayout = new VBox(10, welcomeLabel, logoutButton, Adminaccountview);
+        VBox welcomeLayout = new VBox(10, welcomeLabel, logoutButton, Adminaccountview, portalSceneButton);
         welcomeLayout.setStyle("-fx-padding: 20;");
 
         Scene welcomeScene = new Scene(welcomeLayout, 300, 200);
         primaryStage.setTitle("Welcome");
         primaryStage.setScene(welcomeScene);
+
+
+
     }
 
     private void Accountview(Stage primaryStage) {
         Label welcomeLabel = new Label("Here are the account details admin!");
         Button GoBackButton = new Button("Go Back");
         GoBackButton.setOnAction(e -> showWelcomeScreen(primaryStage));
+    }
 
+    private void Studentscene(Stage primaryStage) {
+        Label portalLabel = new Label("Student Portal");
+        Button backButton = new Button("Go back");
+        backButton.setOnAction(actionEvent -> showWelcomeScreen(primaryStage));
+        VBox layout = new VBox(10, portalLabel, backButton);
+        layout.setStyle("-fx-padding: 20;");
+
+        // Create a scene with the layout
+        Scene portalScene = new Scene(layout, 300, 200);
+
+        // Set the new scene in primaryStage
+        primaryStage.setScene(portalScene);
+        primaryStage.setTitle("Student Portal");
 
     }
+
     private void adminMenu(Stage primaryStage) throws IOException { //admin menu from fxml file
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("adminDashboard.fxml")));
         Scene menuScene = new Scene(root);
@@ -110,6 +131,9 @@ public class HelloApplication extends Application {
         }
         return false;
     }
+
+
+
 
     public static void main(String[] args) {
         launch(args);
