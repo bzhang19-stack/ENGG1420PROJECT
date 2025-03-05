@@ -1,6 +1,5 @@
 package com.example.project;
 //imports
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,7 +8,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
@@ -20,20 +18,30 @@ public class HelloApplication extends Application {
     public void start(Stage primaryStage) throws IOException {
         Student_Data.initializeStudents(); // Ensure students are loaded
         showDefaultMenu(primaryStage);
+        //adminMenu(primaryStage);
     }
 //Default menu
     private void showDefaultMenu(Stage primaryStage) {
-        Button loginButton = new Button("Go to Login");
-        loginButton.setOnAction(e -> showLoginScene(primaryStage));
+        Button loginButtonUser = new Button("User login");
+        Button loginButtonAdmin = new Button("Admin login");
 
-        StackPane defaultMenuLayout = new StackPane(loginButton);
-        Scene defaultMenuScene = new Scene(defaultMenuLayout, 300, 200);
+        loginButtonUser.setOnAction(e -> showLoginScene(primaryStage));
+        loginButtonAdmin.setOnAction(e -> showLoginScene(primaryStage));
+
+        StackPane defaultMenuLayout = new StackPane(loginButtonAdmin, loginButtonUser);
+        Scene defaultMenuScene = new Scene(defaultMenuLayout, 500, 500);
+
+       loginButtonAdmin.setTranslateX(100);
+       loginButtonAdmin.setTranslateY(50);
+
+        loginButtonUser.setTranslateX(100);
+        loginButtonUser.setTranslateY(0);
+
 
         primaryStage.setTitle("Default Menu");
         primaryStage.setScene(defaultMenuScene);
         primaryStage.show();
     }
-
 //When clicking go to login
     private void showLoginScene(Stage primaryStage) {
         TextField emailField = new TextField();
@@ -43,6 +51,7 @@ public class HelloApplication extends Application {
         passwordField.setPromptText("Enter Password (Student ID for now)");
 
         Button loginButton = new Button("Login");
+
 //validating the student login
         loginButton.setOnAction(e -> {
             String enteredEmail = emailField.getText();
@@ -69,49 +78,53 @@ public class HelloApplication extends Application {
         Label welcomeLabel = new Label("Welcome to Webadvisor Application!");
         Button logoutButton = new Button("Logout");
         Button Adminaccountview = new Button("Accountdata");
-        Button portalSceneButton = new Button("Student Portal");
         logoutButton.setOnAction(e -> showDefaultMenu(primaryStage));
         Adminaccountview.setOnAction(e -> Accountview(primaryStage));
-        portalSceneButton.setOnAction(e -> Studentscene(primaryStage));
 
-        VBox welcomeLayout = new VBox(10, welcomeLabel, logoutButton, Adminaccountview, portalSceneButton);
+        VBox welcomeLayout = new VBox(10, welcomeLabel, logoutButton, Adminaccountview);
         welcomeLayout.setStyle("-fx-padding: 20;");
 
         Scene welcomeScene = new Scene(welcomeLayout, 300, 200);
         primaryStage.setTitle("Welcome");
         primaryStage.setScene(welcomeScene);
-
-
-
     }
 
     private void Accountview(Stage primaryStage) {
-        Label welcomeLabel = new Label("Here are the account details admin!");
-        Button GoBackButton = new Button("Go Back");
-        GoBackButton.setOnAction(e -> showWelcomeScreen(primaryStage));
+        Label welcomeLabel = new Label("Here are the account details, admin!");
+        Button goBackButton = new Button("Go Back");
+        goBackButton.setOnAction(e -> showWelcomeScreen(primaryStage));
+
+        // Create a TextArea to display student data
+        TextArea studentDataArea = new TextArea();
+        studentDataArea.setEditable(false);  // Make it read-only
+        studentDataArea.setPrefSize(400, 300); // Set preferred size
+
+        // Retrieve and format student data
+        List<Student_Data> students = Student_Data.getAllStudents();
+        StringBuilder studentData = new StringBuilder();
+
+        studentData.append(String.format("%-15s %-20s %-30s%n", "Student ID", "Name", "Email"));
+        studentData.append("------------------------------------------------------------\n");
+
+        for (Student_Data student : students) {
+            studentData.append(String.format("%-15s %-20s %-30s%n",
+                    student.getStudentId(), student.getName(), student.getEmail()));
+        }
+
+        studentDataArea.setText(studentData.toString());
+
+        VBox accountViewLayout = new VBox(10, welcomeLabel, studentDataArea, goBackButton);
+        accountViewLayout.setStyle("-fx-padding: 20;");
+
+        Scene accountViewScene = new Scene(accountViewLayout, 500, 400);
+        primaryStage.setTitle("Student List");
+        primaryStage.setScene(accountViewScene);
     }
-
-    private void Studentscene(Stage primaryStage) {
-        Label portalLabel = new Label("Student Portal");
-        Button backButton = new Button("Go back");
-        backButton.setOnAction(actionEvent -> showWelcomeScreen(primaryStage));
-        VBox layout = new VBox(10, portalLabel, backButton);
-        layout.setStyle("-fx-padding: 20;");
-
-        // Create a scene with the layout
-        Scene portalScene = new Scene(layout, 300, 200);
-
-        // Set the new scene in primaryStage
-        primaryStage.setScene(portalScene);
-        primaryStage.setTitle("Student Portal");
-
-    }
-
     private void adminMenu(Stage primaryStage) throws IOException { //admin menu from fxml file
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("adminDashboard.fxml")));
         Scene menuScene = new Scene(root);
         primaryStage.setScene(menuScene);
-        //primaryStage.show();
+        primaryStage.show();
     }
 //alert if the entered email is inocrrect
     private void showAlert(Alert.AlertType alertType, String title, String content) {
@@ -131,9 +144,6 @@ public class HelloApplication extends Application {
         }
         return false;
     }
-
-
-
 
     public static void main(String[] args) {
         launch(args);
