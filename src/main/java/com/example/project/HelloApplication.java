@@ -11,6 +11,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
+import javafx.geometry.Pos;
+import javafx.geometry.Insets;
+
 
 public class HelloApplication extends Application {
 //taking in the arraylist from studentdata.java to parse the correct list of emails for authentication
@@ -99,14 +102,23 @@ public class HelloApplication extends Application {
         // Set action for back button
         backButton.setOnAction(e -> showWelcomeScreen(primaryStage));
 
-        // Create layout (VBox) to hold the components
-        VBox layout = new VBox(10, portalLabel, backButton);
-        layout.setStyle("-fx-padding: 20;");
+        // Create layout to hold the components
+        VBox layout = new VBox(10, portalLabel);
+        layout.setAlignment(Pos.TOP_CENTER);  // Keep the label at the top
+        layout.setPadding(new Insets(20));
 
-        // Create a scene with the layout
-        Scene portalScene = new Scene(layout, 300, 200);
+// Create StackPane as the root layout
+        StackPane root = new StackPane();
+        root.getChildren().addAll(layout, backButton);
 
-        // Set the new scene in primaryStage
+// Position the go back at in bottomleft
+        StackPane.setAlignment(backButton, Pos.BOTTOM_LEFT);
+        StackPane.setMargin(backButton, new Insets(10, 0, 10, 10));  // Adds spacing
+
+
+        Scene portalScene = new Scene(root, 800, 500);
+
+
         primaryStage.setScene(portalScene);
         primaryStage.setTitle("Student Portal");
     }
