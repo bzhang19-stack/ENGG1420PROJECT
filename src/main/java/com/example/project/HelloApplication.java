@@ -78,16 +78,40 @@ public class HelloApplication extends Application {
         Label welcomeLabel = new Label("Welcome to Webadvisor Application!");
         Button logoutButton = new Button("Logout");
         Button Adminaccountview = new Button("Accountdata");
+        Button portalSceneButton = new Button("Student Portal");
         logoutButton.setOnAction(e -> showDefaultMenu(primaryStage));
         Adminaccountview.setOnAction(e -> Accountview(primaryStage));
+        portalSceneButton.setOnAction(e -> studentScene(primaryStage));
 
-        VBox welcomeLayout = new VBox(10, welcomeLabel, logoutButton, Adminaccountview);
+        VBox welcomeLayout = new VBox(10, welcomeLabel, logoutButton, Adminaccountview, portalSceneButton);
         welcomeLayout.setStyle("-fx-padding: 20;");
 
         Scene welcomeScene = new Scene(welcomeLayout, 300, 200);
         primaryStage.setTitle("Welcome");
         primaryStage.setScene(welcomeScene);
     }
+
+    private void studentScene(Stage primaryStage) {
+        // Create components
+        Label portalLabel = new Label("Student Portal");
+        Button backButton = new Button("Go back");
+
+        // Set action for back button
+        backButton.setOnAction(e -> showWelcomeScreen(primaryStage));
+
+        // Create layout (VBox) to hold the components
+        VBox layout = new VBox(10, portalLabel, backButton);
+        layout.setStyle("-fx-padding: 20;");
+
+        // Create a scene with the layout
+        Scene portalScene = new Scene(layout, 300, 200);
+
+        // Set the new scene in primaryStage
+        primaryStage.setScene(portalScene);
+        primaryStage.setTitle("Student Portal");
+    }
+
+
 
     private void Accountview(Stage primaryStage) {
         Label welcomeLabel = new Label("Here are the account details, admin!");
