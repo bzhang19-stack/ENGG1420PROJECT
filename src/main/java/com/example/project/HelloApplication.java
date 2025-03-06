@@ -2,6 +2,8 @@ package com.example.project;
 
 // Imports
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
@@ -28,7 +30,7 @@ public class HelloApplication extends Application {
     }
 
     // Default menu
-    private void showDefaultMenu(Stage primaryStage) {
+    protected void showDefaultMenu(Stage primaryStage) { //Cannot be private as is will not be accessible in controllers (limits logout abilities)
         Button loginButtonUser = new Button("User login");
         Button loginButtonAdmin = new Button("Admin login");
 
@@ -115,7 +117,11 @@ public class HelloApplication extends Application {
             else if(faculty != null){ //Validates faculty user and sets appropriate scene
                 loggedInFaculty = faculty;
                 showAlert(Alert.AlertType.INFORMATION, "Login Success", "Welcome, " + faculty.getName() + "!");
-                showFacultyWelcomeScreen(primaryStage);
+                try { //Try/catch used for FXML loader withing showFacultyWelcomeScreen
+                    showFacultyWelcomeScreen(primaryStage);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
             else {
                 showAlert(Alert.AlertType.ERROR, "Login Failed", "Incorrect email or password.");
@@ -161,9 +167,62 @@ public class HelloApplication extends Application {
     }
 
     //Welcome screen for faculty users
-    private void showFacultyWelcomeScreen(Stage primaryStage){
+    private void showFacultyWelcomeScreen(Stage primaryStage) throws IOException {
 
+        //Loads FXML file... cannot be done in one step as a NullPointerException is thrown upon logout attempt for some reason
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("facultyDashboard.fxml"));
+        Parent root = loader.load();
 
+        //Loads FacultyDashboardController
+        FacultyDashboardController controller = loader.getController();
+
+        //Passes primaryStage into controller and faculty member
+        controller.setPrimaryStage(primaryStage);
+        controller.setFacultyMember(loggedInFaculty);
+
+        //Creates new scene and sets primaryStage with the scene
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+    }
+
+    protected void facultyProfileView(Stage primaryStage, Faculty_Data loggedInFaculty) { //Cannot be private as it must be accessed by controller
+        if (loggedInFaculty == null) {
+            showAlert(Alert.AlertType.ERROR, "Error", "No user is logged in.");
+            return;
+        }
+
+        Label welcomeLabel = new Label("Your Account Details:");
+        Button goBackButton = new Button("Go Back");
+        goBackButton.setOnAction(e -> {
+            try {
+                showFacultyWelcomeScreen(primaryStage); //Try-catch used for fxml reasons
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+
+        TextArea facultyDataArea = new TextArea();
+        facultyDataArea.setEditable(false);
+        facultyDataArea.setPrefSize(400, 200);
+
+        String facultyData = String.format(
+                "Faculty ID: %s\nName: %s\nDegree: %s\nResearch Interest: %s\nEmail: %s\nRoom: %s",
+                loggedInFaculty.getFacultyID(),
+                loggedInFaculty.getName(),
+                loggedInFaculty.getDegree(),
+                loggedInFaculty.getResearchInterest(),
+                loggedInFaculty.getEmail(),
+                loggedInFaculty.getOfficeLocation()
+        );
+
+        facultyDataArea.setText(facultyData);
+
+        VBox accountViewLayout = new VBox(10, welcomeLabel, facultyDataArea, goBackButton);
+        accountViewLayout.setStyle("-fx-padding: 20;");
+
+        Scene accountViewScene = new Scene(accountViewLayout, 500, 300);
+        primaryStage.setTitle("Your Account");
+        primaryStage.setScene(accountViewScene);
     }
 
     // Welcome screen for admin users
