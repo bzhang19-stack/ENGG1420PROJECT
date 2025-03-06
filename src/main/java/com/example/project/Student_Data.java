@@ -48,7 +48,7 @@ public class Student_Data {
     public String getCurrentSemester() { return currentSemester; }
 
     // Method to check if an email matches password (Student ID)
-    public boolean validateLogin(String email, String studentId) {
+    public boolean validateStudentLogin(String email, String studentId) {
         return this.email.equals(email) && this.studentId.equals(studentId);
     }
 

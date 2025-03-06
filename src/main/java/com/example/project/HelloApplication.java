@@ -2,8 +2,6 @@ package com.example.project;
 
 // Imports
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
@@ -14,7 +12,6 @@ import javafx.geometry.Pos;
 import javafx.geometry.Insets;
 import java.io.IOException;
 import java.util.List;
-import java.util.Objects;
 
 public class HelloApplication extends Application {
     // Stores the currently logged-in user
@@ -24,7 +21,8 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         Student_Data.initializeStudents(); // Ensure students are loaded
-        Admin_data.initializeAdmin();
+        Admin_data.initializeAdmin(); //Ensure admin is loaded
+        Faculty_Data.initializeFaculty(); //Ensures faculty are loaded
         showDefaultMenu(primaryStage);
     }
 
@@ -93,10 +91,10 @@ public class HelloApplication extends Application {
     // Login scene for user
     private void showLoginSceneUser(Stage primaryStage) {
         TextField emailField = new TextField();
-        emailField.setPromptText("Enter Email");
+        emailField.setPromptText("Enter Username/Email");
 
         PasswordField passwordField = new PasswordField();
-        passwordField.setPromptText("Enter Student ID");
+        passwordField.setPromptText("Enter Password");
 
         Button loginButton = new Button("Login");
         Button backButton = new Button("Back");
@@ -111,7 +109,8 @@ public class HelloApplication extends Application {
                 loggedInStudent = student; // Store the logged-in user
                 showAlert(Alert.AlertType.INFORMATION, "Login Success", "Welcome, " + student.getName() + "!");
                 showWelcomeScreen(primaryStage);
-            } else {
+            }
+            else {
                 showAlert(Alert.AlertType.ERROR, "Login Failed", "Incorrect email or password.");
             }
         });
@@ -269,7 +268,7 @@ public class HelloApplication extends Application {
     // Helper method to find a student by email and ID
     private Student_Data getStudentByEmailAndId(String email, String studentId) {
         for (Student_Data student : Student_Data.getAllStudents()) {
-            if (student.validateLogin(email, studentId)) {
+            if (student.validateStudentLogin(email, studentId)) {
                 return student;
             }
         }
