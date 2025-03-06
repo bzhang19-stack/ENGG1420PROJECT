@@ -35,10 +35,10 @@ public class HelloApplication extends Application {
         StackPane defaultMenuLayout = new StackPane(loginButtonAdmin, loginButtonUser);
         Scene defaultMenuScene = new Scene(defaultMenuLayout, 500, 500);
 
-       loginButtonAdmin.setTranslateX(100);
+       loginButtonAdmin.setTranslateX(0);
        loginButtonAdmin.setTranslateY(50);
 
-        loginButtonUser.setTranslateX(100);
+        loginButtonUser.setTranslateX(0);
         loginButtonUser.setTranslateY(0);
 
 
