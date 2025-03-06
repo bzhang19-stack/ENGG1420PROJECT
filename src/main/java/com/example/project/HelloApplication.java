@@ -17,6 +17,7 @@ public class HelloApplication extends Application {
     // Stores the currently logged-in user
     private Student_Data loggedInStudent;
     private Admin_data loggedInAdmin;
+    private Faculty_Data loggedInFaculty;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -105,10 +106,16 @@ public class HelloApplication extends Application {
             String enteredPassword = passwordField.getText();
 
             Student_Data student = getStudentByEmailAndId(enteredEmail, enteredPassword);
-            if (student != null) {
+            Faculty_Data faculty = getFacultyByEmailAndID(enteredEmail, enteredPassword);
+            if (student != null) { //Validates student user and sets appropriate scene
                 loggedInStudent = student; // Store the logged-in user
                 showAlert(Alert.AlertType.INFORMATION, "Login Success", "Welcome, " + student.getName() + "!");
-                showWelcomeScreen(primaryStage);
+                showStudentWelcomeScreen(primaryStage);
+            }
+            else if(faculty != null){ //Validates faculty user and sets appropriate scene
+                loggedInFaculty = faculty;
+                showAlert(Alert.AlertType.INFORMATION, "Login Success", "Welcome, " + faculty.getName() + "!");
+                showFacultyWelcomeScreen(primaryStage);
             }
             else {
                 showAlert(Alert.AlertType.ERROR, "Login Failed", "Incorrect email or password.");
@@ -131,7 +138,7 @@ public class HelloApplication extends Application {
     }
 
     // Welcome screen for student users
-    private void showWelcomeScreen(Stage primaryStage) {
+    private void showStudentWelcomeScreen(Stage primaryStage) {
         Label welcomeLabel = new Label("Welcome to WebAdvisor Application!");
         Button logoutButton = new Button("Logout");
         Button accountViewButton = new Button("Account Data");
@@ -151,6 +158,12 @@ public class HelloApplication extends Application {
         Scene welcomeScene = new Scene(welcomeLayout, 300, 200);
         primaryStage.setTitle("User Dashboard");
         primaryStage.setScene(welcomeScene);
+    }
+
+    //Welcome screen for faculty users
+    private void showFacultyWelcomeScreen(Stage primaryStage){
+
+
     }
 
     // Welcome screen for admin users
@@ -182,7 +195,7 @@ public class HelloApplication extends Application {
         portalLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
 
         Button backButton = new Button("Go back");
-        backButton.setOnAction(e -> showWelcomeScreen(primaryStage));
+        backButton.setOnAction(e -> showStudentWelcomeScreen(primaryStage));
 
         Button gradesButton = new Button("Grades\n Semester Grades");
         gradesButton.setMinSize(300, 100);
@@ -211,7 +224,7 @@ public class HelloApplication extends Application {
 
         Label welcomeLabel = new Label("Your Account Details:");
         Button goBackButton = new Button("Go Back");
-        goBackButton.setOnAction(e -> showWelcomeScreen(primaryStage));
+        goBackButton.setOnAction(e -> showStudentWelcomeScreen(primaryStage));
 
         TextArea studentDataArea = new TextArea();
         studentDataArea.setEditable(false);
@@ -272,6 +285,14 @@ public class HelloApplication extends Application {
                 return student;
             }
         }
+        return null;
+    }
+
+    //Helper method to find faculty (keeps faculty member hidden)
+    private Faculty_Data getFacultyByEmailAndID(String facultyUser, String facultyID){
+        for(Faculty_Data faculty : Faculty_Data.getAllFaculty()) //Iterates through each faculty object
+            if(faculty.validateFacultyLogin(facultyUser, facultyID)) //Validates faculty login
+                return faculty;
         return null;
     }
 

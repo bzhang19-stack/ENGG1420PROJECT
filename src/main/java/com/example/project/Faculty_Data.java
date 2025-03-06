@@ -33,12 +33,8 @@ public class Faculty_Data {
     public String getOfficeLocation(){return officeLocation;}
     public static List<Faculty_Data> getAllFaculty(){return facultyList;}
 
-    //Validates faculty login by iterating through faculty objects and attributes for a matching email and password
     public boolean validateFacultyLogin(String enteredEmail, String enteredPassword){
-        for(Faculty_Data faculty : facultyList) //Iterates through each faculty object
-            if(faculty.getEmail().equalsIgnoreCase(enteredEmail) && faculty.getFacultyID().equals(enteredPassword)) //Checks if entered emails and passwords match those of a faculty member
-                return true; //Returns true if there's a match
-        return false; //Returns false if there's no match
+        return this.email.equalsIgnoreCase(enteredEmail) && this.facultyID.equals(enteredPassword);
     }
 
     public static void initializeFaculty(){
