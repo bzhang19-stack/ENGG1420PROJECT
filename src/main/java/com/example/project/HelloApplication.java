@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -54,6 +55,7 @@ public class HelloApplication extends Application {
         passwordField.setPromptText("Enter Password (Student ID for now)");
 
         Button loginButton = new Button("Login");
+        Button backButton = new Button("Back");
 
 //validating the student login
         loginButton.setOnAction(e -> {
@@ -67,8 +69,12 @@ public class HelloApplication extends Application {
                 showAlert(Alert.AlertType.ERROR, "Login Failed", "Incorrect email or password.");
             }
         });
+
+        backButton.setOnAction(e -> showDefaultMenu(primaryStage));
 //creating the screen for the login
-        VBox loginLayout = new VBox(10, emailField, passwordField, loginButton);
+        HBox buttonLayout = new HBox(10, loginButton, backButton);
+
+        VBox loginLayout = new VBox(10, emailField, passwordField, buttonLayout);
         loginLayout.setStyle("-fx-padding: 20;");
 
         Scene loginScene = new Scene(loginLayout, 300, 200);
