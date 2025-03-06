@@ -48,10 +48,11 @@ public class HelloApplication extends Application {
         primaryStage.setScene(defaultMenuScene);
         primaryStage.show();
     }
-    // Login scene admin
+
+    // Login scene for admin
     private void showLoginSceneAdmin(Stage primaryStage) {
         TextField emailField = new TextField();
-        emailField.setPromptText("Enter User");
+        emailField.setPromptText("Enter Username");
 
         PasswordField passwordField = new PasswordField();
         passwordField.setPromptText("Enter Password");
@@ -61,16 +62,16 @@ public class HelloApplication extends Application {
 
         // Validate login
         loginButton.setOnAction(e -> {
-            String enteredAdminPass = emailField.getText();
-            String enteredAdminUser = passwordField.getText();
+            String enteredAdminUser = emailField.getText();
+            String enteredAdminPass = passwordField.getText();
 
-            Admin_data admin = getAdminData(enteredAdminPass, enteredAdminUser);
+            Admin_data admin = getAdminData(enteredAdminUser, enteredAdminPass);
             if (admin != null) {
-                loggedInAdmin = admin; // Store the logged-in user
-                showAlert(Alert.AlertType.INFORMATION, "Login Success", "Welcome admin!");
-                showWelcomeScreen(primaryStage);
+                loggedInAdmin = admin; // Store the logged-in admin
+                showAlert(Alert.AlertType.INFORMATION, "Login Success", "Welcome, Admin!");
+                showAdminWelcomeScreen(primaryStage);
             } else {
-                showAlert(Alert.AlertType.ERROR, "Login Failed", "Incorrect email or password.");
+                showAlert(Alert.AlertType.ERROR, "Login Failed", "Incorrect username or password.");
             }
         });
 
@@ -85,13 +86,11 @@ public class HelloApplication extends Application {
         loginLayout.setAlignment(Pos.CENTER);
 
         Scene loginScene = new Scene(loginLayout, 300, 200);
-        primaryStage.setTitle("Login");
+        primaryStage.setTitle("Admin Login");
         primaryStage.setScene(loginScene);
     }
 
-
-
-    // Login scene user
+    // Login scene for user
     private void showLoginSceneUser(Stage primaryStage) {
         TextField emailField = new TextField();
         emailField.setPromptText("Enter Email");
@@ -128,13 +127,13 @@ public class HelloApplication extends Application {
         loginLayout.setAlignment(Pos.CENTER);
 
         Scene loginScene = new Scene(loginLayout, 300, 200);
-        primaryStage.setTitle("Login");
+        primaryStage.setTitle("User Login");
         primaryStage.setScene(loginScene);
     }
 
-    // Welcome screen
+    // Welcome screen for student users
     private void showWelcomeScreen(Stage primaryStage) {
-        Label welcomeLabel = new Label("Welcome to Webadvisor Application!");
+        Label welcomeLabel = new Label("Welcome to WebAdvisor Application!");
         Button logoutButton = new Button("Logout");
         Button accountViewButton = new Button("Account Data");
         Button portalSceneButton = new Button("Student Portal");
@@ -151,8 +150,31 @@ public class HelloApplication extends Application {
         welcomeLayout.setStyle("-fx-padding: 20;");
 
         Scene welcomeScene = new Scene(welcomeLayout, 300, 200);
-        primaryStage.setTitle("Welcome");
+        primaryStage.setTitle("User Dashboard");
         primaryStage.setScene(welcomeScene);
+    }
+
+    // Welcome screen for admin users
+    private void showAdminWelcomeScreen(Stage primaryStage) {
+        Label welcomeLabel = new Label("Welcome, Admin!");
+        Button logoutButton = new Button("Logout");
+        Button manageStudentsButton = new Button("Manage Students");
+        Button portalSceneButton = new Button("Admin Portal");
+
+        logoutButton.setOnAction(e -> {
+            loggedInAdmin = null; // Log out the admin
+            showDefaultMenu(primaryStage);
+        });
+
+        manageStudentsButton.setOnAction(e -> System.out.println("Manage Students button clicked"));
+        portalSceneButton.setOnAction(e -> System.out.println("Admin Portal button clicked"));
+
+        VBox adminLayout = new VBox(10, welcomeLabel, logoutButton, manageStudentsButton, portalSceneButton);
+        adminLayout.setStyle("-fx-padding: 20;");
+
+        Scene adminScene = new Scene(adminLayout, 300, 200);
+        primaryStage.setTitle("Admin Dashboard");
+        primaryStage.setScene(adminScene);
     }
 
     // Student Portal
@@ -182,7 +204,6 @@ public class HelloApplication extends Application {
         primaryStage.setTitle("Student Portal");
     }
 
-    // Account View - Shows only the logged-in user's data
     private void Accountview(Stage primaryStage) {
         if (loggedInStudent == null) {
             showAlert(Alert.AlertType.ERROR, "Error", "No user is logged in.");
@@ -227,10 +248,11 @@ public class HelloApplication extends Application {
         }
         return null;
     }
+
     // Helper method to find admin
-    private Admin_data getAdminData(String adminPass, String adminUser) {
+    private Admin_data getAdminData(String adminUser, String adminPass) {
         for (Admin_data admin : Admin_data.getAdmin()) {
-            if (admin.validateLogin(adminPass, adminUser)) {
+            if (admin.validateLogin(adminUser, adminPass)) {
                 return admin;
             }
         }
@@ -249,3 +271,4 @@ public class HelloApplication extends Application {
         launch(args);
     }
 }
+
