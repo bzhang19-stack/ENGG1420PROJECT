@@ -20,6 +20,7 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         Student_Data.initializeStudents(); // Ensure students are loaded
+        Admin_data.initializeAdmin();
         showDefaultMenu(primaryStage);
         //adminMenu(primaryStage);
     }
@@ -28,16 +29,16 @@ public class HelloApplication extends Application {
         Button loginButtonUser = new Button("User login");
         Button loginButtonAdmin = new Button("Admin login");
 
-        loginButtonUser.setOnAction(e -> showLoginScene(primaryStage));
-        loginButtonAdmin.setOnAction(e -> showLoginScene(primaryStage));
+        loginButtonUser.setOnAction(e -> showLoginSceneUser(primaryStage));
+        loginButtonAdmin.setOnAction(e -> showLoginSceneAdmin(primaryStage));
 
         StackPane defaultMenuLayout = new StackPane(loginButtonAdmin, loginButtonUser);
         Scene defaultMenuScene = new Scene(defaultMenuLayout, 500, 500);
 
-       loginButtonAdmin.setTranslateX(100);
+       loginButtonAdmin.setTranslateX(30);
        loginButtonAdmin.setTranslateY(50);
 
-        loginButtonUser.setTranslateX(100);
+        loginButtonUser.setTranslateX(30);
         loginButtonUser.setTranslateY(0);
 
 
@@ -45,13 +46,63 @@ public class HelloApplication extends Application {
         primaryStage.setScene(defaultMenuScene);
         primaryStage.show();
     }
-//When clicking go to login
-    private void showLoginScene(Stage primaryStage) {
+    private void showLoginSceneAdmin(Stage primaryStage) {
+
+        // back button
+        Button backButton = new Button("Back");
+        backButton.setOnAction(e -> showDefaultMenu(primaryStage));
+        // ---------------------------------------------------------------------
+
         TextField emailField = new TextField();
         emailField.setPromptText("Enter Email");
 
         PasswordField passwordField = new PasswordField();
-        passwordField.setPromptText("Enter Password (Student ID for now)");
+        passwordField.setPromptText("Enter Password (Admin)");
+
+        Button loginButton = new Button("Login");
+        // admin login
+
+        //validating the student login
+        loginButton.setOnAction(e -> {
+            String enteredAdminPass = emailField.getText();
+            String enteredAdminUser = passwordField.getText();
+
+            if (validateAdminLogin(enteredAdminPass, enteredAdminUser)) {
+                showAlert(Alert.AlertType.INFORMATION, "Login Success", "Welcome, student!");
+                showWelcomeScreen(primaryStage);
+            } else {
+                showAlert(Alert.AlertType.ERROR, "Login Failed", "Incorrect email or password.");
+            }
+        });
+
+        //VBOX/ SCENE
+        VBox loginLayout = new VBox(10, emailField, passwordField, loginButton, backButton);
+        loginLayout.setAlignment(Pos.CENTER);
+        loginLayout.setStyle("-fx-padding: 20;");
+
+        Scene loginScene = new Scene(loginLayout, 300, 200);
+
+        primaryStage.setTitle("Login");
+        primaryStage.setScene(loginScene);
+
+    }
+
+
+
+//When clicking go to login admin
+    private void showLoginSceneUser(Stage primaryStage) {
+
+        // back button
+        Button backButton = new Button("Back");
+        backButton.setOnAction(e -> showDefaultMenu(primaryStage));
+        // ---------------------------------------------------------------------
+
+
+        TextField emailField = new TextField();
+        emailField.setPromptText("Enter Email");
+
+        PasswordField passwordField = new PasswordField();
+        passwordField.setPromptText("Enter Password (Student): ");
 
         Button loginButton = new Button("Login");
 
@@ -68,7 +119,8 @@ public class HelloApplication extends Application {
             }
         });
 //creating the screen for the login
-        VBox loginLayout = new VBox(10, emailField, passwordField, loginButton);
+        VBox loginLayout = new VBox(10, emailField, passwordField, loginButton, backButton);
+        loginLayout.setAlignment(Pos.CENTER);
         loginLayout.setStyle("-fx-padding: 20;");
 
         Scene loginScene = new Scene(loginLayout, 300, 200);
@@ -183,6 +235,17 @@ public class HelloApplication extends Application {
         }
         return false;
     }
+    // Validate email and password (Student ID) against student list from Student_Data
+    private boolean validateAdminLogin(String adminPass, String adminUser) {
+        List<Admin_data> adminList = Admin_data.getAdmin();
+        for (Admin_data ADMIN : adminList) {
+            if (ADMIN.validateLogin(adminPass, adminUser)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     public static void main(String[] args) {
         launch(args);
