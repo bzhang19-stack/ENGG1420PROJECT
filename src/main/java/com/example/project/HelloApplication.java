@@ -1,30 +1,32 @@
 package com.example.project;
-//imports
+
+// Imports
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import javafx.geometry.Pos;
+import javafx.geometry.Insets;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
-import javafx.geometry.Pos;
-import javafx.geometry.Insets;
-
 
 public class HelloApplication extends Application {
-//taking in the arraylist from studentdata.java to parse the correct list of emails for authentication
+    // Stores the currently logged-in user
+    private Student_Data loggedInStudent;
+
     @Override
     public void start(Stage primaryStage) throws IOException {
         Student_Data.initializeStudents(); // Ensure students are loaded
         showDefaultMenu(primaryStage);
-        //adminMenu(primaryStage);
     }
-//Default menu
+
+    // Default menu
     private void showDefaultMenu(Stage primaryStage) {
         Button loginButtonUser = new Button("User login");
         Button loginButtonAdmin = new Button("Admin login");
@@ -35,18 +37,17 @@ public class HelloApplication extends Application {
         StackPane defaultMenuLayout = new StackPane(loginButtonAdmin, loginButtonUser);
         Scene defaultMenuScene = new Scene(defaultMenuLayout, 500, 500);
 
-       loginButtonAdmin.setTranslateX(0);
-       loginButtonAdmin.setTranslateY(50);
-
+        loginButtonAdmin.setTranslateX(0);
+        loginButtonAdmin.setTranslateY(50);
         loginButtonUser.setTranslateX(0);
         loginButtonUser.setTranslateY(0);
-
 
         primaryStage.setTitle("Default Menu");
         primaryStage.setScene(defaultMenuScene);
         primaryStage.show();
     }
-//When clicking go to login
+
+    // Login scene
     private void showLoginScene(Stage primaryStage) {
         TextField emailField = new TextField();
         emailField.setPromptText("Enter Email");
@@ -57,13 +58,15 @@ public class HelloApplication extends Application {
         Button loginButton = new Button("Login");
         Button backButton = new Button("Back");
 
-//validating the student login
+        // Validate login
         loginButton.setOnAction(e -> {
             String enteredEmail = emailField.getText();
             String enteredPassword = passwordField.getText();
 
-            if (validateStudentLogin(enteredEmail, enteredPassword)) {
-                showAlert(Alert.AlertType.INFORMATION, "Login Success", "Welcome, student!");
+            Student_Data student = getStudentByEmailAndId(enteredEmail, enteredPassword);
+            if (student != null) {
+                loggedInStudent = student; // Store the logged-in user
+                showAlert(Alert.AlertType.INFORMATION, "Login Success", "Welcome, " + student.getName() + "!");
                 showWelcomeScreen(primaryStage);
             } else {
                 showAlert(Alert.AlertType.ERROR, "Login Failed", "Incorrect email or password.");
@@ -71,28 +74,36 @@ public class HelloApplication extends Application {
         });
 
         backButton.setOnAction(e -> showDefaultMenu(primaryStage));
-//creating the screen for the login
+
+        // Align buttons side by side
         HBox buttonLayout = new HBox(10, loginButton, backButton);
+        buttonLayout.setAlignment(Pos.CENTER);
 
         VBox loginLayout = new VBox(10, emailField, passwordField, buttonLayout);
         loginLayout.setStyle("-fx-padding: 20;");
+        loginLayout.setAlignment(Pos.CENTER);
 
         Scene loginScene = new Scene(loginLayout, 300, 200);
-
         primaryStage.setTitle("Login");
         primaryStage.setScene(loginScene);
     }
-//when logged on goes to here!
+
+    // Welcome screen
     private void showWelcomeScreen(Stage primaryStage) {
         Label welcomeLabel = new Label("Welcome to Webadvisor Application!");
         Button logoutButton = new Button("Logout");
-        Button Adminaccountview = new Button("Accountdata");
+        Button accountViewButton = new Button("Account Data");
         Button portalSceneButton = new Button("Student Portal");
-        logoutButton.setOnAction(e -> showDefaultMenu(primaryStage));
-        Adminaccountview.setOnAction(e -> Accountview(primaryStage));
+
+        logoutButton.setOnAction(e -> {
+            loggedInStudent = null; // Log out the user
+            showDefaultMenu(primaryStage);
+        });
+
+        accountViewButton.setOnAction(e -> Accountview(primaryStage));
         portalSceneButton.setOnAction(e -> studentScene(primaryStage));
 
-        VBox welcomeLayout = new VBox(10, welcomeLabel, logoutButton, Adminaccountview, portalSceneButton);
+        VBox welcomeLayout = new VBox(10, welcomeLabel, logoutButton, accountViewButton, portalSceneButton);
         welcomeLayout.setStyle("-fx-padding: 20;");
 
         Scene welcomeScene = new Scene(welcomeLayout, 300, 200);
@@ -100,94 +111,85 @@ public class HelloApplication extends Application {
         primaryStage.setScene(welcomeScene);
     }
 
+    // Student Portal
     private void studentScene(Stage primaryStage) {
-        // Create components
         Label portalLabel = new Label("Student Portal");
         portalLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
+
         Button backButton = new Button("Go back");
         backButton.setOnAction(e -> showWelcomeScreen(primaryStage));
 
-        //Create Grades button
         Button gradesButton = new Button("Grades\n Semester Grades");
-        gradesButton.setMinSize(300, 100); // Set width and height
+        gradesButton.setMinSize(300, 100);
         gradesButton.setStyle("-fx-background-color: #f8f8f8; -fx-border-color: #d3d3d3; -fx-font-size: 14px; -fx-text-alignment: center;");
-        //test print message
         gradesButton.setOnAction(e -> System.out.println("Grade button check"));
-        // Create layout
+
         VBox layout = new VBox(10, portalLabel, gradesButton);
-        layout.setAlignment(Pos.TOP_CENTER);  // Keep the label at the top
+        layout.setAlignment(Pos.TOP_CENTER);
         layout.setPadding(new Insets(20));
 
-//  StackPane as root layout
         StackPane root = new StackPane();
         root.getChildren().addAll(layout, backButton);
-
-// Position the go back in bottomleft
         StackPane.setAlignment(backButton, Pos.BOTTOM_LEFT);
-        StackPane.setMargin(backButton, new Insets(10, 0, 10, 10));  // Adds spacing
-
+        StackPane.setMargin(backButton, new Insets(10, 0, 10, 10));
 
         Scene portalScene = new Scene(root, 800, 500);
         primaryStage.setScene(portalScene);
         primaryStage.setTitle("Student Portal");
     }
 
-
-
+    // Account View - Shows only the logged-in user's data
     private void Accountview(Stage primaryStage) {
-        Label welcomeLabel = new Label("Here are the account details, admin!");
+        if (loggedInStudent == null) {
+            showAlert(Alert.AlertType.ERROR, "Error", "No user is logged in.");
+            return;
+        }
+
+        Label welcomeLabel = new Label("Your Account Details:");
         Button goBackButton = new Button("Go Back");
         goBackButton.setOnAction(e -> showWelcomeScreen(primaryStage));
 
-        // Create a TextArea to display student data
         TextArea studentDataArea = new TextArea();
-        studentDataArea.setEditable(false);  // Make it read-only
-        studentDataArea.setPrefSize(400, 300); // Set preferred size
+        studentDataArea.setEditable(false);
+        studentDataArea.setPrefSize(400, 200);
 
-        // Retrieve and format student data
-        List<Student_Data> students = Student_Data.getAllStudents();
-        StringBuilder studentData = new StringBuilder();
+        String studentData = String.format(
+                "Student ID: %s\nName: %s\nAddress: %s\nTelephone: %s\nEmail: %s\nAcademic Level: %s\nCurrent Semester: %s",
+                loggedInStudent.getStudentId(),
+                loggedInStudent.getName(),
+                loggedInStudent.getAddress(),
+                loggedInStudent.getTelephone(),
+                loggedInStudent.getEmail(),
+                loggedInStudent.getAcademicLevel(),
+                loggedInStudent.getCurrentSemester()
+        );
 
-        studentData.append(String.format("%-15s %-20s %-30s%n", "Student ID", "Name", "Email"));
-        studentData.append("------------------------------------------------------------\n");
-
-        for (Student_Data student : students) {
-            studentData.append(String.format("%-15s %-20s %-30s%n",
-                    student.getStudentId(), student.getName(), student.getEmail()));
-        }
-
-        studentDataArea.setText(studentData.toString());
+        studentDataArea.setText(studentData);
 
         VBox accountViewLayout = new VBox(10, welcomeLabel, studentDataArea, goBackButton);
         accountViewLayout.setStyle("-fx-padding: 20;");
 
-        Scene accountViewScene = new Scene(accountViewLayout, 500, 400);
-        primaryStage.setTitle("Student List");
+        Scene accountViewScene = new Scene(accountViewLayout, 500, 300);
+        primaryStage.setTitle("Your Account");
         primaryStage.setScene(accountViewScene);
     }
-    private void adminMenu(Stage primaryStage) throws IOException { //admin menu from fxml file
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("adminDashboard.fxml")));
-        Scene menuScene = new Scene(root);
-        primaryStage.setScene(menuScene);
-        primaryStage.show();
+
+    // Helper method to find a student by email and ID
+    private Student_Data getStudentByEmailAndId(String email, String studentId) {
+        for (Student_Data student : Student_Data.getAllStudents()) {
+            if (student.validateLogin(email, studentId)) {
+                return student;
+            }
+        }
+        return null;
     }
-//alert if the entered email is inocrrect
+
+    // Alert box
     private void showAlert(Alert.AlertType alertType, String title, String content) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setContentText(content);
         alert.showAndWait();
-    }
-
-    // Validate email and password (Student ID) against student list from Student_Data
-    private boolean validateStudentLogin(String email, String studentId) {
-        List<Student_Data> students = Student_Data.getAllStudents();
-        for (Student_Data student : students) {
-            if (student.validateLogin(email, studentId)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     public static void main(String[] args) {

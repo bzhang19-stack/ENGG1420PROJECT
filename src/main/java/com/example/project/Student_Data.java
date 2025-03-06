@@ -39,6 +39,14 @@ public class Student_Data {
         return name;
     }
 
+    public String getAddress() { return  address; }
+
+    public String getTelephone() { return telephone; }
+
+    public String getAcademicLevel() { return academicLevel; }
+
+    public String getCurrentSemester() { return currentSemester; }
+
     // Method to check if an email matches password (Student ID)
     public boolean validateLogin(String email, String studentId) {
         return this.email.equals(email) && this.studentId.equals(studentId);
