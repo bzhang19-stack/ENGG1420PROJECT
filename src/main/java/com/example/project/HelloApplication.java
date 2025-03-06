@@ -51,10 +51,10 @@ public class HelloApplication extends Application {
     // Login scene admin
     private void showLoginSceneAdmin(Stage primaryStage) {
         TextField emailField = new TextField();
-        emailField.setPromptText("Enter Email");
+        emailField.setPromptText("Enter User");
 
         PasswordField passwordField = new PasswordField();
-        passwordField.setPromptText("Enter Password (Student ID for now)");
+        passwordField.setPromptText("Enter Password");
 
         Button loginButton = new Button("Login");
         Button backButton = new Button("Back");
@@ -97,7 +97,7 @@ public class HelloApplication extends Application {
         emailField.setPromptText("Enter Email");
 
         PasswordField passwordField = new PasswordField();
-        passwordField.setPromptText("Enter Password (Student ID for now)");
+        passwordField.setPromptText("Enter Student ID");
 
         Button loginButton = new Button("Login");
         Button backButton = new Button("Back");
