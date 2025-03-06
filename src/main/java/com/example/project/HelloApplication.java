@@ -19,10 +19,12 @@ import java.util.Objects;
 public class HelloApplication extends Application {
     // Stores the currently logged-in user
     private Student_Data loggedInStudent;
+    private Admin_data loggedInAdmin;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
         Student_Data.initializeStudents(); // Ensure students are loaded
+        Admin_data.initializeAdmin();
         showDefaultMenu(primaryStage);
     }
 
@@ -31,8 +33,8 @@ public class HelloApplication extends Application {
         Button loginButtonUser = new Button("User login");
         Button loginButtonAdmin = new Button("Admin login");
 
-        loginButtonUser.setOnAction(e -> showLoginScene(primaryStage));
-        loginButtonAdmin.setOnAction(e -> showLoginScene(primaryStage));
+        loginButtonUser.setOnAction(e -> showLoginSceneUser(primaryStage));
+        loginButtonAdmin.setOnAction(e -> showLoginSceneAdmin(primaryStage));
 
         StackPane defaultMenuLayout = new StackPane(loginButtonAdmin, loginButtonUser);
         Scene defaultMenuScene = new Scene(defaultMenuLayout, 500, 500);
@@ -46,9 +48,51 @@ public class HelloApplication extends Application {
         primaryStage.setScene(defaultMenuScene);
         primaryStage.show();
     }
+    // Login scene admin
+    private void showLoginSceneAdmin(Stage primaryStage) {
+        TextField emailField = new TextField();
+        emailField.setPromptText("Enter Email");
 
-    // Login scene
-    private void showLoginScene(Stage primaryStage) {
+        PasswordField passwordField = new PasswordField();
+        passwordField.setPromptText("Enter Password (Student ID for now)");
+
+        Button loginButton = new Button("Login");
+        Button backButton = new Button("Back");
+
+        // Validate login
+        loginButton.setOnAction(e -> {
+            String enteredAdminPass = emailField.getText();
+            String enteredAdminUser = passwordField.getText();
+
+            Admin_data admin = getAdminData(enteredAdminPass, enteredAdminUser);
+            if (admin != null) {
+                loggedInAdmin = admin; // Store the logged-in user
+                showAlert(Alert.AlertType.INFORMATION, "Login Success", "Welcome admin!");
+                showWelcomeScreen(primaryStage);
+            } else {
+                showAlert(Alert.AlertType.ERROR, "Login Failed", "Incorrect email or password.");
+            }
+        });
+
+        backButton.setOnAction(e -> showDefaultMenu(primaryStage));
+
+        // Align buttons side by side
+        HBox buttonLayout = new HBox(10, loginButton, backButton);
+        buttonLayout.setAlignment(Pos.CENTER);
+
+        VBox loginLayout = new VBox(10, emailField, passwordField, buttonLayout);
+        loginLayout.setStyle("-fx-padding: 20;");
+        loginLayout.setAlignment(Pos.CENTER);
+
+        Scene loginScene = new Scene(loginLayout, 300, 200);
+        primaryStage.setTitle("Login");
+        primaryStage.setScene(loginScene);
+    }
+
+
+
+    // Login scene user
+    private void showLoginSceneUser(Stage primaryStage) {
         TextField emailField = new TextField();
         emailField.setPromptText("Enter Email");
 
@@ -179,6 +223,15 @@ public class HelloApplication extends Application {
         for (Student_Data student : Student_Data.getAllStudents()) {
             if (student.validateLogin(email, studentId)) {
                 return student;
+            }
+        }
+        return null;
+    }
+    // Helper method to find admin
+    private Admin_data getAdminData(String adminPass, String adminUser) {
+        for (Admin_data admin : Admin_data.getAdmin()) {
+            if (admin.validateLogin(adminPass, adminUser)) {
+                return admin;
             }
         }
         return null;
