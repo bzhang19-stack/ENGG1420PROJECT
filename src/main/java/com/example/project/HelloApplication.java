@@ -166,7 +166,7 @@ public class HelloApplication extends Application {
             showDefaultMenu(primaryStage);
         });
 
-        manageStudentsButton.setOnAction(e -> System.out.println("Manage Students button clicked"));
+        manageStudentsButton.setOnAction(e -> showManageStudentsScreen(primaryStage));
         portalSceneButton.setOnAction(e -> System.out.println("Admin Portal button clicked"));
 
         VBox adminLayout = new VBox(10, welcomeLabel, logoutButton, manageStudentsButton, portalSceneButton);
@@ -238,6 +238,33 @@ public class HelloApplication extends Application {
         primaryStage.setTitle("Your Account");
         primaryStage.setScene(accountViewScene);
     }
+
+    // Manage students screen
+    private void showManageStudentsScreen(Stage primaryStage) {
+        Label titleLabel = new Label("Student List");
+        TextArea studentTextArea = new TextArea();
+        studentTextArea.setEditable(false);
+
+        List<Student_Data> students = Student_Data.getAllStudents();
+        StringBuilder studentData = new StringBuilder();
+        for (Student_Data student : students) {
+            studentData.append(String.format("ID: %s\nName: %s\nEmail: %s\nAddress: %s\nTelephone Number: %s\nAcademic Level: %s\nSemester: %s\n\n",
+                    student.getStudentId(), student.getName(), student.getEmail(), student.getAddress(), student.getTelephone(), student.getAcademicLevel(), student.getCurrentSemester()));
+        }
+        studentTextArea.setText(studentData.toString());
+
+        Button backButton = new Button("Go Back");
+        backButton.setOnAction(e -> showAdminWelcomeScreen(primaryStage));
+
+        VBox layout = new VBox(10, titleLabel, studentTextArea, backButton);
+        layout.setAlignment(Pos.CENTER);
+        layout.setPadding(new Insets(20));
+
+        Scene studentScene = new Scene(layout, 500, 400);
+        primaryStage.setTitle("Manage Students");
+        primaryStage.setScene(studentScene);
+    }
+
 
     // Helper method to find a student by email and ID
     private Student_Data getStudentByEmailAndId(String email, String studentId) {
