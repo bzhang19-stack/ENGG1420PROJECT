@@ -1,6 +1,7 @@
 package com.example.project;
 
 // Imports
+import javafx.scene.control.ComboBox;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -20,7 +21,7 @@ public class HelloApplication extends Application {
     private Student_Data loggedInStudent;
     private Admin_data loggedInAdmin;
     private Faculty_Data loggedInFaculty;
-
+    //Start sequence
     @Override
     public void start(Stage primaryStage) throws IOException {
         Student_Data.initializeStudents(); // Ensure students are loaded
@@ -147,23 +148,38 @@ public class HelloApplication extends Application {
     private void showStudentWelcomeScreen(Stage primaryStage) {
         Label welcomeLabel = new Label("Welcome to WebAdvisor Application!");
         Button logoutButton = new Button("Logout");
-        Button accountViewButton = new Button("Account Data");
-        Button portalSceneButton = new Button("Student Portal");
 
+        // Create MenuButton
+        MenuButton menuButton = new MenuButton("Select an Option");
+
+        // Create MenuItems
+        MenuItem item1 = new MenuItem("Account Data");
+        MenuItem item2 = new MenuItem("Student Portal");
+        MenuItem item3 = new MenuItem("Option 3");
+
+        // Set actions for menu items
+        item1.setOnAction(e -> Accountview(primaryStage));
+        item2.setOnAction(e -> studentScene(primaryStage));
+        item3.setOnAction(event -> System.out.println("Option 3 selected"));
+
+        // **FIX: Add MenuItems to MenuButton**
+        menuButton.getItems().addAll(item1, item2, item3);
+
+        // Logout button action
         logoutButton.setOnAction(e -> {
             loggedInStudent = null; // Log out the user
             showDefaultMenu(primaryStage);
         });
 
-        accountViewButton.setOnAction(e -> Accountview(primaryStage));
-        portalSceneButton.setOnAction(e -> studentScene(primaryStage));
-
-        VBox welcomeLayout = new VBox(10, welcomeLabel, logoutButton, accountViewButton, portalSceneButton);
+        // Layout
+        VBox welcomeLayout = new VBox(10, welcomeLabel, logoutButton, menuButton);
         welcomeLayout.setStyle("-fx-padding: 20;");
 
+        // Scene
         Scene welcomeScene = new Scene(welcomeLayout, 300, 200);
         primaryStage.setTitle("User Dashboard");
         primaryStage.setScene(welcomeScene);
+        primaryStage.show();
     }
 
     //Welcome screen for faculty users
