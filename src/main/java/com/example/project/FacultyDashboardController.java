@@ -20,12 +20,15 @@ public class FacultyDashboardController implements Initializable{
     @FXML
     private Button logoutButton;
 
+    private SceneController sceneController;
+
+
     private final String[] options = {"Dashboard","Subject Management","Course Management","Student Management","Faculty Management","Event Management"}; // Options in choice box
 
     private Stage primaryStage;
     private Faculty_Data loggedInFaculty;
 
-    private final HelloApplication helloApplication = new HelloApplication();
+    private final Main helloApplication = new Main();
 
     public void setPrimaryStage(Stage primaryStage){ this.primaryStage = primaryStage;} //Needed to link facultyDashboard stage to primaryStage in HelloApplication
 
@@ -36,6 +39,7 @@ public class FacultyDashboardController implements Initializable{
     public void initialize(URL arg0, ResourceBundle arg1){
         dropdownMenu.getItems().addAll(options); // Populates choice box with options
     }
+
 
     public void getSelection(ActionEvent event){
         String selection = dropdownMenu.getValue();
