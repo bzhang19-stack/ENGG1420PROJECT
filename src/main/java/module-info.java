@@ -13,4 +13,8 @@ module com.example.project {
 
     opens com.example.project to javafx.fxml;
     exports com.example.project;
+    exports SceneControllers;
+    opens SceneControllers to javafx.fxml;
+    exports UserFiles;
+    opens UserFiles to javafx.fxml;
 }

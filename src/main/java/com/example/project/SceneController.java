@@ -1,21 +1,16 @@
 package com.example.project;
 
+import SceneControllers.FacultyDashboardController;
+import UserFiles.Admin_data;
+import UserFiles.Faculty_Data;
+import UserFiles.Student_Data;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.control.PasswordField;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import javafx.geometry.Pos;
-import javafx.geometry.Insets;
 
 import java.io.IOException;
 
@@ -70,8 +65,18 @@ public class SceneController {
 
     // Show welcome screen for faculty users
     public void showFacultyWelcomeScreen() throws IOException {
-        FacultyDashboard facultyDashboard = new FacultyDashboard(this);
-        facultyDashboard.showFacultyWelcomeScreen(primaryStage, loggedInFaculty);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("facultyDashboard.fxml"));
+        Parent root = loader.load();
+
+        FacultyDashboardController facultyDashboardController = loader.getController();
+        facultyDashboardController.setSceneController(this);
+        facultyDashboardController.setFacultyMember(loggedInFaculty);
+        facultyDashboardController.setPrimaryStage(primaryStage);
+
+        Scene scene = new Scene(root);
+
+        primaryStage.setScene(scene);
+
     }
 
     // Show welcome screen for admin users

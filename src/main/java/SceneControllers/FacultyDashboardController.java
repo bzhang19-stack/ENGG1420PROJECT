@@ -1,5 +1,7 @@
-package com.example.project;
+package SceneControllers;
 
+import UserFiles.Faculty_Data;
+import com.example.project.SceneController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -21,17 +23,13 @@ public class FacultyDashboardController implements Initializable{
     private Button logoutButton;
 
     private SceneController sceneController;
-
-
-    private final String[] options = {"Dashboard","Subject Management","Course Management","Student Management","Faculty Management","Event Management"}; // Options in choice box
-
     private Stage primaryStage;
     private Faculty_Data loggedInFaculty;
 
-    private final Main helloApplication = new Main();
+    private final String[] options = {"Dashboard","Subject Management","Course Management","Student Management","Faculty Management","Event Management"}; // Options in choice box;
 
     public void setPrimaryStage(Stage primaryStage){ this.primaryStage = primaryStage;} //Needed to link facultyDashboard stage to primaryStage in HelloApplication
-
+    public void setSceneController(SceneController sceneController){ this.sceneController = sceneController;}
     public void setFacultyMember(Faculty_Data loggedInFaculty){ this.loggedInFaculty = loggedInFaculty;}
 
 
@@ -44,11 +42,8 @@ public class FacultyDashboardController implements Initializable{
     public void getSelection(ActionEvent event){
         String selection = dropdownMenu.getValue();
         menuLabel.setText("You have selected: "+selection);
-        if(selection.equals(options[4]))
-            helloApplication.facultyProfileView(primaryStage, loggedInFaculty);
-
     }
     public void logout(ActionEvent event) throws IOException {
-        helloApplication.showDefaultMenu(primaryStage);
+        sceneController.showDefaultMenu();
     }
 }
