@@ -1,6 +1,6 @@
 package SceneControllers;
 
-import UserFiles.FacultyData;
+import UserFiles.Faculty;
 import com.example.project.SceneController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,13 +24,13 @@ public class FacultyDashboardController implements Initializable{
 
     private SceneController sceneController;
     private Stage primaryStage;
-    private FacultyData loggedInFaculty;
+    private Faculty loggedInFaculty;
 
     private final String[] options = {"Dashboard","Subject Management","Course Management","Student Management","Faculty Management","Event Management"}; // Options in choice box;
 
     public void setPrimaryStage(Stage primaryStage){ this.primaryStage = primaryStage;} //Needed to link facultyDashboard stage to primaryStage in HelloApplication
     public void setSceneController(SceneController sceneController){ this.sceneController = sceneController;}
-    public void setFacultyMember(FacultyData loggedInFaculty){ this.loggedInFaculty = loggedInFaculty;}
+    public void setFacultyMember(Faculty loggedInFaculty){ this.loggedInFaculty = loggedInFaculty;}
 
 
     @Override

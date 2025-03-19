@@ -1,6 +1,6 @@
 package com.example.project;
 
-import UserFiles.StudentData;
+import UserFiles.Student;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
@@ -35,7 +35,7 @@ public class AdminDashboard {
         TextArea studentTextArea = new TextArea();
 
         StringBuilder studentData = new StringBuilder();
-        for (StudentData student : StudentData.getAllStudents()) {
+        for (Student student : Student.getAllStudents()) {
             studentData.append(String.format("ID: %s\nName: %s\nEmail: %s\n\n",
                     student.getID(), student.getName(), student.getEmail()));
         }

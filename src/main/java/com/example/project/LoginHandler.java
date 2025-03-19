@@ -1,8 +1,8 @@
 package com.example.project;
 
-import UserFiles.AdminData;
-import UserFiles.FacultyData;
-import UserFiles.StudentData;
+import UserFiles.Admin;
+import UserFiles.Faculty;
+import UserFiles.Student;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
@@ -32,7 +32,7 @@ public class LoginHandler {
             String enteredAdminUser = emailField.getText();
             String enteredAdminPass = passwordField.getText();
 
-            AdminData admin = AdminData.getAdminData(enteredAdminUser, enteredAdminPass);
+            Admin admin = Admin.getAdminData(enteredAdminUser, enteredAdminPass);
             if (admin != null) {
                 sceneController.setLoggedInAdmin(admin);
                 sceneController.showAlert(Alert.AlertType.INFORMATION, "Login Success", "Welcome, Admin!");
@@ -55,7 +55,7 @@ public class LoginHandler {
     // User login scene
     public void showUserLoginScene(Stage primaryStage) {
         TextField emailField = new TextField();
-        emailField.setPromptText("Enter Username/Email");
+        emailField.setPromptText("Enter Email");
 
         PasswordField passwordField = new PasswordField();
         passwordField.setPromptText("Enter Password");
@@ -67,8 +67,8 @@ public class LoginHandler {
             String enteredEmail = emailField.getText();
             String enteredPassword = passwordField.getText();
 
-            StudentData student = StudentData.getStudentByEmailAndPassword(enteredEmail, enteredPassword);
-            FacultyData faculty = FacultyData.getFacultyByEmailAndPassword(enteredEmail, enteredPassword);
+            Student student = Student.getStudentByEmailAndPassword(enteredEmail, enteredPassword);
+            Faculty faculty = Faculty.getFacultyByEmailAndPassword(enteredEmail, enteredPassword);
 
             if (student != null) {
                 sceneController.setLoggedInStudent(student);

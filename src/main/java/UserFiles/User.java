@@ -1,12 +1,12 @@
 package UserFiles;
 
-public class UserData {
+public class User {
     private String name;
     private String id;
     private String email;
     private String password;
 
-    public UserData(String name, String id, String email, String password){
+    public User(String name, String id, String email, String password){
         this.name = name;
         this.id = id;
         this.email = email;
