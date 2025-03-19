@@ -1,9 +1,9 @@
 package com.example.project;
 
 import SceneControllers.FacultyDashboardController;
-import UserFiles.Admin_data;
-import UserFiles.Faculty_Data;
-import UserFiles.Student_Data;
+import UserFiles.AdminData;
+import UserFiles.FacultyData;
+import UserFiles.StudentData;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -16,9 +16,9 @@ import java.io.IOException;
 
 public class SceneController {
     private Stage primaryStage;
-    private Student_Data loggedInStudent;
-    private Admin_data loggedInAdmin;
-    private Faculty_Data loggedInFaculty;
+    private StudentData loggedInStudent;
+    private AdminData loggedInAdmin;
+    private FacultyData loggedInFaculty;
 
     public SceneController(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -94,15 +94,15 @@ public class SceneController {
     }
 
     // Setters for logged-in user
-    public void setLoggedInStudent(Student_Data student) {
+    public void setLoggedInStudent(StudentData student) {
         this.loggedInStudent = student;
     }
 
-    public void setLoggedInAdmin(Admin_data admin) {
+    public void setLoggedInAdmin(AdminData admin) {
         this.loggedInAdmin = admin;
     }
 
-    public void setLoggedInFaculty(Faculty_Data faculty) {
+    public void setLoggedInFaculty(FacultyData faculty) {
         this.loggedInFaculty = faculty;
     }
 }

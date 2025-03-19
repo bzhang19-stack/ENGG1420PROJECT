@@ -3,13 +3,13 @@ package UserFiles;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Admin_data {
+public class AdminData {
     private String adminUser;
     private String adminPass;
 
-    private static List<Admin_data> allAdmins = new ArrayList<>();
+    private static List<AdminData> allAdmins = new ArrayList<>();
 
-    public Admin_data(String adminUser, String adminPass) {
+    public AdminData(String adminUser, String adminPass) {
         this.adminUser = adminUser;
         this.adminPass = adminPass;
     }
@@ -21,17 +21,17 @@ public class Admin_data {
 
     // Load initial admin data
     public static void initializeAdmin() {
-        allAdmins.add(new Admin_data("admin1", "password123"));
-        allAdmins.add(new Admin_data("admin2", "adminpass"));
+        allAdmins.add(new AdminData("admin1", "password123"));
+        allAdmins.add(new AdminData("admin2", "adminpass"));
     }
 
-    public static List<Admin_data> getAllAdmins() {
+    public static List<AdminData> getAllAdmins() {
         return allAdmins;
     }
 
     // ✅ New method to get admin by username and password
-    public static Admin_data getAdminData(String adminUser, String adminPass) {
-        for (Admin_data admin : allAdmins) {
+    public static AdminData getAdminData(String adminUser, String adminPass) {
+        for (AdminData admin : allAdmins) {
             if (admin.validateLogin(adminUser, adminPass)) {
                 return admin;
             }
