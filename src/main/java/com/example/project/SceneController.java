@@ -1,9 +1,11 @@
 package com.example.project;
 
 import SceneControllers.FacultyDashboardController;
+import SceneControllers.FacultyStudentManagementController;
 import UserFiles.Admin;
 import UserFiles.Faculty;
 import UserFiles.Student;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -64,7 +66,7 @@ public class SceneController {
     }
 
     // Show welcome screen for faculty users
-    public void showFacultyWelcomeScreen() throws IOException {
+    public void showFacultyDashboard() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("facultyDashboard.fxml"));
         Parent root = loader.load();
 
@@ -77,6 +79,20 @@ public class SceneController {
 
         primaryStage.setScene(scene);
 
+    }
+
+    public void showFacultyStudentManagement() throws  IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("facultyStudentManagement.fxml"));
+        Parent root = loader.load();
+
+        FacultyStudentManagementController facultyStudentManagementController = loader.getController();
+        facultyStudentManagementController.setSceneController(this);
+        facultyStudentManagementController.setFacultyMember(loggedInFaculty);
+        facultyStudentManagementController.setPrimaryStage(primaryStage);
+
+        Scene scene = new Scene(root);
+
+        primaryStage.setScene(scene);
     }
 
     // Show welcome screen for admin users

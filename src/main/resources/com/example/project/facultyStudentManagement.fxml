@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SceneControllers.FacultyStudentManagementController">
+   <children>
+      <ChoiceBox id="dropdownMenu" fx:id="dropdownMenu" layoutX="-1.0" prefHeight="25.0" prefWidth="85.0" onAction="#getMenuSelection"/>
+      <Button id="logoutButton" fx:id="logoutButton" layoutX="548.0" mnemonicParsing="false" text="Logout" onAction="#logout"/>
+      <ListView id="listView" fx:id="listView" editable="true" layoutX="201.0" layoutY="100.0" prefHeight="200.0" prefWidth="200.0" />
+      <Label layoutX="265.0" layoutY="61.0" text="Select Course" />
+   </children>
+</AnchorPane>

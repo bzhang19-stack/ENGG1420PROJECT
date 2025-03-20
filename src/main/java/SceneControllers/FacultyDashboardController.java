@@ -39,9 +39,10 @@ public class FacultyDashboardController implements Initializable{
     }
 
 
-    public void getSelection(ActionEvent event){
+    public void getSelection(ActionEvent event) throws IOException {
         String selection = dropdownMenu.getValue();
         menuLabel.setText("You have selected: "+selection);
+        if(selection.equals(options[3])) sceneController.showFacultyStudentManagement();
     }
     public void logout(ActionEvent event) throws IOException {
         sceneController.showDefaultMenu();

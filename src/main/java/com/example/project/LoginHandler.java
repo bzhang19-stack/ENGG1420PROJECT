@@ -78,7 +78,7 @@ public class LoginHandler {
                 sceneController.setLoggedInFaculty(faculty);
                 sceneController.showAlert(Alert.AlertType.INFORMATION, "Login Success", "Welcome, " + faculty.getName() + "!");
                 try {
-                    sceneController.showFacultyWelcomeScreen();
+                    sceneController.showFacultyDashboard();
                 } catch (Exception ex) {
                     throw new RuntimeException(ex);
                 }
