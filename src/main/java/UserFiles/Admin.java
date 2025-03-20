@@ -38,4 +38,17 @@ public class Admin {
         }
         return null;
     }
+
+    public void createFacultyProfile(){
+
+    }
+    public void editFacultyMember(){
+
+    }
+    public void deleteFacultyProfile(){
+
+    }
+    public void assignCourse(){
+
+    }
 }

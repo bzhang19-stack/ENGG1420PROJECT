@@ -16,8 +16,7 @@ public class Courses {
 
     public static ArrayList<Courses> courses = new ArrayList<>();
 
-    public Courses(String subjectCode, String subjectName, String section, int capacity, String days, String time,
-                   String finalExamDate, String finalExamTime, String finalExamRoom, String finalExamInstructor) {
+    public Courses(String subjectCode, String subjectName, String section, int capacity, String days, String time, String finalExamDate, String finalExamTime, String finalExamRoom, String finalExamInstructor) {
         this.subjectCode = subjectCode;
         this.subjectName = subjectName;
         this.section = section;
@@ -71,7 +70,9 @@ public class Courses {
         return finalExamInstructor;
     }
 
-    public static ArrayList<Courses> getAllCourses() {
+    public static ArrayList<Courses> getAllCourses(){ return courses;}
+
+    public static void initializeCourses() {
 
         courses.add(new Courses("MATH001", "Calculus I", "Section 1", 30, "Mon/Wed", "9-11 AM", "12/15/2025", "9:00", "Room 101", "Dr. Alan Turing"));
         courses.add(new Courses("ENG101", "Literature Basics", "Section 1", 25, "Tue/Thu", "10-12 PM", "12/16/2025", "10:00", "Room 102", "Prof. Emily Brontë"));
@@ -89,6 +90,5 @@ public class Courses {
         courses.add(new Courses("MUSIC102", "Music", "N/A", 0, "N/A", "N/A", "N/A", "N/A", "N/A", "N/A"));
         courses.add(new Courses("PSYCHO100", "Psychology", "N/A", 0, "N/A", "N/A", "N/A", "N/A", "N/A", "N/A"));
 
-        return courses;
     }
 }

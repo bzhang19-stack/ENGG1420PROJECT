@@ -1,6 +1,7 @@
 package com.example.project;
 
 import UserFiles.Admin;
+import UserFiles.Courses;
 import UserFiles.Faculty;
 import UserFiles.Student;
 import javafx.application.Application;
@@ -12,6 +13,7 @@ public class Main extends Application {
         Student.initializeStudents(); // Ensure students are loaded
         Admin.initializeAdmin(); // Ensure admin is loaded
         Faculty.initializeFaculty(); // Ensure faculty is loaded
+        Courses.initializeCourses(); // Ensure courses are loaded
 
         SceneController sceneController = new SceneController(primaryStage);
         sceneController.showDefaultMenu(); // Start with the default menu
