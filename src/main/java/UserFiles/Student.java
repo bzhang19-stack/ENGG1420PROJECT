@@ -12,7 +12,7 @@ public class Student extends User {
     private static List<Student> allStudents = new ArrayList<>();
 
     public Student(String id, String name, String address, String telephone, String email, String academicLevel, String currentSemester, String password) {
-        super(name,id,email,password);
+        super(name, id, email, password);
         this.address = address;
         this.telephone = telephone;
         this.academicLevel = academicLevel;
@@ -36,10 +36,29 @@ public class Student extends User {
         return currentSemester;
     }
 
-    //public String getEnrolledCourses() { return address;}
-
     public static List<Student> getAllStudents() {
         return allStudents;
+    }
+
+    // Setter methods to update the student information
+    public void setName(String name) {
+        super.name = name;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public void setAcademicLevel(String academicLevel) {
+        this.academicLevel = academicLevel;
+    }
+
+    public void setCurrentSemester(String currentSemester) {
+        this.currentSemester = currentSemester;
     }
 
     // Load initial student data
@@ -56,7 +75,6 @@ public class Student extends User {
         allStudents.add(new Student("S20250010", "Jennifer Davis", "555 Oakwood Pl", "555-3456", "davis@example.edu", "Graduate", "Fall 2025", "default123"));
         // Add more dummy data here
     }
-
 
     //  New method to get student by email and ID
     public static Student getStudentByEmailAndPassword(String email, String password) {

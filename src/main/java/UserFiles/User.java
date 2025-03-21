@@ -1,7 +1,7 @@
 package UserFiles;
 
 public class User {
-    private String name;
+    String name;
     private String id;
     private String email;
     private String password;

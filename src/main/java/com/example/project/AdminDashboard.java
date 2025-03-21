@@ -1,4 +1,3 @@
-
 package com.example.project;
 
 import UserFiles.Courses;
@@ -61,7 +60,64 @@ public class AdminDashboard {
     }
 
     private void showManageStudentsScreen(Stage primaryStage) {
+        Label titleLabel = new Label("Manage Students");
+        ComboBox<String> studentDropdown = new ComboBox<>();
+        TextField nameField = new TextField();
+        TextField addressField = new TextField();
+        TextField telephoneField = new TextField();
+        TextField academicLevelField = new TextField();
+        TextField currentSemesterField = new TextField();
+        Button updateButton = new Button("Update Student Info");
+
+        List<Student> students = Student.getAllStudents();
+        for (Student student : students) {
+            studentDropdown.getItems().add(student.getName());
+        }
+
+        // When a student is selected, load their information into the fields
+        studentDropdown.setOnAction(e -> {
+            String selectedStudentName = studentDropdown.getValue();
+            for (Student student : students) {
+                if (student.getName().equals(selectedStudentName)) {
+                    nameField.setText(student.getName());
+                    addressField.setText(student.getAddress());
+                    telephoneField.setText(student.getTelephone());
+                    academicLevelField.setText(student.getAcademicLevel());
+                    currentSemesterField.setText(student.getCurrentSemester());
+                    break;
+                }
+            }
+        });
+
+        // When the Update button is clicked, update the student's information
+        updateButton.setOnAction(e -> {
+            String selectedStudentName = studentDropdown.getValue();
+            for (Student student : students) {
+                if (student.getName().equals(selectedStudentName)) {
+                    student.setName(nameField.getText());
+                    student.setAddress(addressField.getText());
+                    student.setTelephone(telephoneField.getText());
+                    student.setAcademicLevel(academicLevelField.getText());
+                    student.setCurrentSemester(currentSemesterField.getText());
+
+                    sceneController.showAlert(Alert.AlertType.INFORMATION, "Update Success", "Student information has been updated!");
+                    break;
+                }
+            }
+        });
+
+        Button backButton = new Button("Go Back");
+        backButton.setOnAction(e -> showAdminWelcomeScreen(primaryStage));
+
+        VBox layout = new VBox(10, titleLabel, studentDropdown, new Label("Name:"), nameField, new Label("Address:"), addressField,
+                new Label("Telephone:"), telephoneField, new Label("Academic Level:"), academicLevelField, new Label("Current Semester:"), currentSemesterField, updateButton, backButton);
+        layout.setAlignment(Pos.CENTER);
+        Scene manageStudentsScene = new Scene(layout, 400, 500);
+        primaryStage.setTitle("Manage Students");
+        primaryStage.setScene(manageStudentsScene);
     }
+
+
 
     private void showStudentDetailsScreen(Stage primaryStage) {
         Label titleLabel = new Label("Student Details");
@@ -119,6 +175,8 @@ public class AdminDashboard {
             }
         });
 
+
+
         Button backButton = new Button("Go Back");
         backButton.setOnAction(e -> showAdminWelcomeScreen(primaryStage));
 
@@ -128,6 +186,7 @@ public class AdminDashboard {
         primaryStage.setTitle("Course Details");
         primaryStage.setScene(courseScene);
     }
+
 }
 
 
@@ -180,5 +239,4 @@ public class AdminDashboard {
     }
 
 }
-
- */
+*/
