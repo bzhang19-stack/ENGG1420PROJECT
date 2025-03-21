@@ -18,12 +18,10 @@ public class FacultyStudentManagementViewCourseController {
 
     private SceneController sceneController;
     private Stage primaryStage;
-    private Faculty loggedInFaculty;
     private String selection;
 
     public void setPrimaryStage(Stage primaryStage){ this.primaryStage = primaryStage;} //Needed to link facultyDashboard stage to primaryStage in HelloApplication
     public void setSceneController(SceneController sceneController){ this.sceneController = sceneController;}
-    public void setFacultyMember(Faculty loggedInFaculty){ this.loggedInFaculty = loggedInFaculty;}
     public void setSelection(String selection){ this.selection = selection;}
 
 

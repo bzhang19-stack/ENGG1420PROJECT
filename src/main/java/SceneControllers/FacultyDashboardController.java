@@ -24,13 +24,11 @@ public class FacultyDashboardController implements Initializable{
 
     private SceneController sceneController;
     private Stage primaryStage;
-    private Faculty loggedInFaculty;
 
     private final String[] options = {"Dashboard","Subject Management","Course Management","Student Management","Faculty Management","Event Management"}; // Options in choice box;
 
     public void setPrimaryStage(Stage primaryStage){ this.primaryStage = primaryStage;} //Needed to link facultyDashboard stage to primaryStage in HelloApplication
     public void setSceneController(SceneController sceneController){ this.sceneController = sceneController;}
-    public void setFacultyMember(Faculty loggedInFaculty){ this.loggedInFaculty = loggedInFaculty;}
 
 
     @Override

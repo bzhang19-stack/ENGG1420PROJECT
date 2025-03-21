@@ -20,7 +20,7 @@ public class SceneController {
     private Stage primaryStage;
     private Student loggedInStudent;
     private Admin loggedInAdmin;
-    private Faculty loggedInFaculty;
+    public static Faculty loggedInFaculty;
 
     public SceneController(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -72,12 +72,19 @@ public class SceneController {
 
         FacultyDashboardController facultyDashboardController = loader.getController();
         facultyDashboardController.setSceneController(this);
-        facultyDashboardController.setFacultyMember(loggedInFaculty);
         facultyDashboardController.setPrimaryStage(primaryStage);
 
         Scene scene = new Scene(root);
 
         primaryStage.setScene(scene);
+
+    }
+
+    public void showFacultySubjectManagement() throws IOException{
+
+    }
+
+    public void showFacultyCourseManagement() throws IOException{
 
     }
 
@@ -87,7 +94,6 @@ public class SceneController {
 
         FacultyStudentManagementController facultyStudentManagementController = loader.getController();
         facultyStudentManagementController.setSceneController(this);
-        facultyStudentManagementController.setFacultyMember(loggedInFaculty);
         facultyStudentManagementController.setPrimaryStage(primaryStage);
 
         Scene scene = new Scene(root);
@@ -95,19 +101,26 @@ public class SceneController {
         primaryStage.setScene(scene);
     }
 
-    public void showFacultyStudentManagement(String selection) throws IOException{
+    public void showFacultyStudentManagementViewCourse(String selection) throws IOException{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("facultyStudentManagementViewCourse.fxml"));
         Parent root = loader.load();
 
         FacultyStudentManagementViewCourseController facultyStudentManagementViewCourseController = loader.getController();
         facultyStudentManagementViewCourseController.setSceneController(this);
-        facultyStudentManagementViewCourseController.setFacultyMember(loggedInFaculty);
         facultyStudentManagementViewCourseController.setPrimaryStage(primaryStage);
         facultyStudentManagementViewCourseController.setSelection(selection);
 
         Scene scene = new Scene(root);
 
         primaryStage.setScene(scene);
+    }
+
+    public void showFacultyProfile() throws IOException{
+
+    }
+
+    public void showFacultyEventManagement() throws IOException{
+
     }
 
     // Show welcome screen for admin users
@@ -133,7 +146,5 @@ public class SceneController {
         this.loggedInAdmin = admin;
     }
 
-    public void setLoggedInFaculty(Faculty faculty) {
-        this.loggedInFaculty = faculty;
-    }
+    public void setLoggedInFaculty(Faculty faculty) { this.loggedInFaculty = faculty; }
 }

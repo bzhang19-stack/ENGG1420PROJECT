@@ -29,27 +29,24 @@ public class FacultyStudentManagementController implements Initializable{
 
     private SceneController sceneController;
     private Stage primaryStage;
-    private Faculty loggedInFaculty;
 
-    private final String[] options = {"Dashboard","Subject Management","Course Management","Student Management","Faculty Management","Event Management"}; // Options in choice box;
-    private String[] courses = {"Course1", "Course2", "Course3"};
 
     public void setPrimaryStage(Stage primaryStage){ this.primaryStage = primaryStage;} //Needed to link facultyDashboard stage to primaryStage in HelloApplication
     public void setSceneController(SceneController sceneController){ this.sceneController = sceneController;}
-    public void setFacultyMember(Faculty loggedInFaculty){ this.loggedInFaculty = loggedInFaculty;}
 
+    private final String[] options = {"Dashboard","Subject Management","Course Management","Student Management","Faculty Management","Event Management"}; // Options in choice box;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1){
         dropdownMenu.getItems().addAll(options); // Populates choice box with options
-        listView.getItems().addAll(courses); // Populates list view with courses
+        listView.getItems().addAll(SceneController.loggedInFaculty.getCourses()); // Populates list view with courses
 
         listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
                 String selection = listView.getSelectionModel().getSelectedItem();
                 try {
-                    sceneController.showFacultyStudentManagement(selection);
+                    sceneController.showFacultyStudentManagementViewCourse(selection);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }

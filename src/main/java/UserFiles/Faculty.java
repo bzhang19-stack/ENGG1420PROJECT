@@ -10,8 +10,8 @@ public class Faculty extends User {
 
     private static List<Faculty> allFaculty = new ArrayList<>();
 
-    public Faculty(String id, String name, String email, String degree, String researchInterest, String officeLocation, String password) {
-        super(name,id,email,password);
+    public Faculty(String id, String name, String email, String degree, String researchInterest, String officeLocation, String password, String[] courses) {
+        super(name,id,email,password,courses);
         this.degree = degree;
         this.researchInterest = researchInterest;
         this.officeLocation = officeLocation;
@@ -35,8 +35,8 @@ public class Faculty extends User {
 
     // Load initial faculty data
     public static void initializeFaculty() {
-        allFaculty.add(new Faculty("F20250001", "Dr. Smith", "smith@example.edu", "PhD in AI", "Machine Learning", "Room 101", "password01"));
-        allFaculty.add(new Faculty("F20250002", "Dr. Johnson", "johnson@example.edu", "PhD in CS", "Data Science", "Room 102", "password02"));
+        allFaculty.add(new Faculty("F20250001", "Dr. Smith", "smith@example.edu", "PhD in AI", "Machine Learning", "Room 101", "password01", new String[]{"course1", "course2", "testcourse"}));
+        allFaculty.add(new Faculty("F20250002", "Dr. Johnson", "johnson@example.edu", "PhD in CS", "Data Science", "Room 102", "password02", new String[]{"course2", "course3"}));
     }
 
 
