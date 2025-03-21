@@ -11,7 +11,7 @@
    <children>
       <Pane id="adminMenuPane1" fx:id="adminDashboardLabel" prefHeight="400.0" prefWidth="600.0">
          <children>
-            <ChoiceBox id="dropdownMenu" fx:id="dropdownMenu" focusTraversable="false" onAction="#getSelection" prefHeight="25.0" prefWidth="85.0">
+            <ChoiceBox id="dropdownMenu" fx:id="dropdownMenu" focusTraversable="false" onAction="#getSelection" prefHeight="25.0" prefWidth="107.0">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets></ChoiceBox>

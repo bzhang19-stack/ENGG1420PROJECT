@@ -35,7 +35,7 @@ public class Faculty extends User {
 
     // Load initial faculty data
     public static void initializeFaculty() {
-        allFaculty.add(new Faculty("F20250001", "Dr. Smith", "smith@example.edu", "PhD in AI", "Machine Learning", "Room 101", "password01", new String[]{"course1", "course2", "testcourse"}));
+        allFaculty.add(new Faculty("F20250001", "Dr. Smith", "smith@example.edu", "PhD in AI", "Machine Learning", "Room 101", "password01", new String[]{"course1", "course2", "course3"}));
         allFaculty.add(new Faculty("F20250002", "Dr. Johnson", "johnson@example.edu", "PhD in CS", "Data Science", "Room 102", "password02", new String[]{"course2", "course3"}));
     }
 

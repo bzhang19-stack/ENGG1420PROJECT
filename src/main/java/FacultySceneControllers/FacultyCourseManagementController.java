@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class FacultyEventManagementController implements Initializable {
+public class FacultyCourseManagementController implements Initializable {
     @FXML
     private ChoiceBox<String> dropdownMenu;
     @FXML

@@ -17,8 +17,6 @@ public class FacultyDashboardController implements Initializable{
     @FXML
     private ChoiceBox<String> dropdownMenu;
     @FXML
-    private Label menuLabel;
-    @FXML
     private Button logoutButton;
 
     private SceneController sceneController;
@@ -37,13 +35,13 @@ public class FacultyDashboardController implements Initializable{
 
     public void getSelection(ActionEvent event) throws IOException {
         String selection = dropdownMenu.getValue();
-        menuLabel.setText("You have selected: "+selection);
         switch(selection){
             case "Dashboard": sceneController.showFacultyDashboard(); break;
-            case "Subject Management": sceneController.showFacultySubjectManagement(); break;
+            //case "Subject Management": sceneController.showFacultySubjectManagement(); break;
             case "Student Management": sceneController.showFacultyStudentManagement(); break;
-            case "Faculty Management": sceneController.showFacultyProfile(); break;
+            //case "Faculty Management": sceneController.showFacultyProfile(); break;
             case "Event Management": sceneController.showFacultyEventManagement(); break;
+            case "Course Management": sceneController.showFacultyCourseManagement(); break;
         }
     }
     public void logout(ActionEvent event) throws IOException {

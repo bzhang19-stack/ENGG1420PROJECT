@@ -1,9 +1,6 @@
 package com.example.project;
 
-import FacultySceneControllers.FacultyDashboardController;
-import FacultySceneControllers.FacultyEventManagementController;
-import FacultySceneControllers.FacultyStudentManagementController;
-import FacultySceneControllers.FacultyStudentManagementViewCourseController;
+import FacultySceneControllers.*;
 import UserFiles.Admin;
 import UserFiles.Faculty;
 import UserFiles.Student;
@@ -82,12 +79,32 @@ public class SceneController {
 
     }
 
-    public void showFacultySubjectManagement() throws IOException{
+    /*public void showFacultySubjectManagement() throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("facultySubjectManagement.fxml"));
+        Parent root = loader.load();
 
-    }
+        FacultySubjectManagementController facultySubjectManagementController = loader.getController();
+        facultySubjectManagementController.setSceneController(this);
+        facultySubjectManagementController.setPrimaryStage(primaryStage);
+
+        Scene scene = new Scene(root);
+
+        primaryStage.setTitle("Subject Management");
+        primaryStage.setScene(scene);
+    }*/
 
     public void showFacultyCourseManagement() throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("facultyCourseManagement.fxml"));
+        Parent root = loader.load();
 
+        FacultyCourseManagementController facultyCourseManagementController = loader.getController();
+        facultyCourseManagementController.setSceneController(this);
+        facultyCourseManagementController.setPrimaryStage(primaryStage);
+
+        Scene scene = new Scene(root);
+
+        primaryStage.setTitle("Course Management");
+        primaryStage.setScene(scene);
     }
 
     public void showFacultyStudentManagement() throws  IOException{
@@ -119,10 +136,19 @@ public class SceneController {
         primaryStage.setScene(scene);
     }
 
-    public void showFacultyProfile() throws IOException{
+    /*public void showFacultyProfile() throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("facultyProfile.fxml"));
+        Parent root = loader.load();
 
+        FacultyProfileController facultyProfileController = loader.load();
+        facultyProfileController.setSceneController(this);
+        facultyProfileController.setPrimaryStage(primaryStage);
 
-    }
+        Scene scene = new Scene(root);
+
+        primaryStage.setTitle("Profile View");
+        primaryStage.setScene(scene);
+    }*/
 
     public void showFacultyEventManagement() throws IOException{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("facultyEventManagement.fxml"));
@@ -160,5 +186,5 @@ public class SceneController {
         this.loggedInAdmin = admin;
     }
 
-    public void setLoggedInFaculty(Faculty faculty) { this.loggedInFaculty = faculty; }
+    public void setLoggedInFaculty(Faculty faculty) { loggedInFaculty = faculty; }
 }
