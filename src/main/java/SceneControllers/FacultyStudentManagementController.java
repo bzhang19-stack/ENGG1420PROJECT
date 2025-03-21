@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -29,8 +30,6 @@ public class FacultyStudentManagementController implements Initializable{
     private SceneController sceneController;
     private Stage primaryStage;
     private Faculty loggedInFaculty;
-    private Parent root;
-    private Scene scene;
 
     private final String[] options = {"Dashboard","Subject Management","Course Management","Student Management","Faculty Management","Event Management"}; // Options in choice box;
     private String[] courses = {"Course1", "Course2", "Course3"};
@@ -50,7 +49,7 @@ public class FacultyStudentManagementController implements Initializable{
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
                 String selection = listView.getSelectionModel().getSelectedItem();
                 try {
-                    viewCourse(selection);
+                    sceneController.showFacultyStudentManagement(selection);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -60,19 +59,18 @@ public class FacultyStudentManagementController implements Initializable{
     public void getMenuSelection(ActionEvent event) throws IOException {
         String selection = dropdownMenu.getValue();
         switch (selection){
-            case "Dashboard": sceneController.showFacultyDashboard();
-            case "Student Management": sceneController.showFacultyStudentManagement();
+            case "Dashboard": sceneController.showFacultyDashboard(); break;
+            case "Student Management": sceneController.showFacultyStudentManagement(); break;
         }
     }
-    public void viewCourse(String selection) throws IOException{
+    public void courseManagementBack(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("facultyStudentManagement.fxml"));
         Parent root = loader.load();
-
-
-
-
-
+        primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
     }
+
     public void logout(ActionEvent event) throws IOException {
         sceneController.showDefaultMenu();
     }

@@ -2,10 +2,10 @@ package com.example.project;
 
 import SceneControllers.FacultyDashboardController;
 import SceneControllers.FacultyStudentManagementController;
+import SceneControllers.FacultyStudentManagementViewCourseController;
 import UserFiles.Admin;
 import UserFiles.Faculty;
 import UserFiles.Student;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -89,6 +89,21 @@ public class SceneController {
         facultyStudentManagementController.setSceneController(this);
         facultyStudentManagementController.setFacultyMember(loggedInFaculty);
         facultyStudentManagementController.setPrimaryStage(primaryStage);
+
+        Scene scene = new Scene(root);
+
+        primaryStage.setScene(scene);
+    }
+
+    public void showFacultyStudentManagement(String selection) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("facultyStudentManagementViewCourse.fxml"));
+        Parent root = loader.load();
+
+        FacultyStudentManagementViewCourseController facultyStudentManagementViewCourseController = loader.getController();
+        facultyStudentManagementViewCourseController.setSceneController(this);
+        facultyStudentManagementViewCourseController.setFacultyMember(loggedInFaculty);
+        facultyStudentManagementViewCourseController.setPrimaryStage(primaryStage);
+        facultyStudentManagementViewCourseController.setSelection(selection);
 
         Scene scene = new Scene(root);
 

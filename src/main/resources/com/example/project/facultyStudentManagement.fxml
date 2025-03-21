@@ -6,7 +6,7 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SceneControllers.FacultyStudentManagementController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SceneControllers.FacultyStudentManagementController">
    <children>
       <ChoiceBox id="dropdownMenu" fx:id="dropdownMenu" layoutX="-1.0" prefHeight="25.0" prefWidth="85.0" onAction="#getMenuSelection"/>
       <Button id="logoutButton" fx:id="logoutButton" layoutX="548.0" mnemonicParsing="false" text="Logout" onAction="#logout"/>
