@@ -8,6 +8,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.geometry.Pos;
 import java.util.List;
+import javafx.scene.control.ComboBox;
+
 
 public class AdminDashboard {
     private SceneController sceneController;
@@ -23,7 +25,8 @@ public class AdminDashboard {
         MenuButton studentManagementMenu = new MenuButton("Student Management");
         MenuItem manageStudentsMenuItem = new MenuItem("Manage Students");
         MenuItem studentDetailsMenuItem = new MenuItem("Student Details");
-        studentManagementMenu.getItems().addAll(manageStudentsMenuItem, studentDetailsMenuItem);
+        MenuItem addNewStudentMenuItem = new MenuItem("Add New Student");
+        studentManagementMenu.getItems().addAll(manageStudentsMenuItem, studentDetailsMenuItem,addNewStudentMenuItem );
 
         MenuButton facultyManagementMenu = new MenuButton("Faculty Management");
         MenuItem manageFacultyMenuItem = new MenuItem("Manage Faculty");
@@ -46,6 +49,7 @@ public class AdminDashboard {
         logoutMenuItem.setOnAction(e -> sceneController.showDefaultMenu());
         manageStudentsMenuItem.setOnAction(e -> showManageStudentsScreen(primaryStage));
         studentDetailsMenuItem.setOnAction(e -> showStudentDetailsScreen(primaryStage));
+        addNewStudentMenuItem.setOnAction(e -> showAddStudentScreen(primaryStage));//FIXED
         courseDetailsMenuItem.setOnAction(e -> showCourseDetailsScreen(primaryStage));
         studentsEnrolledMenuItem.setOnAction(e -> showStudentsEnrolledScreen(primaryStage));
 
@@ -141,6 +145,15 @@ public class AdminDashboard {
             }
         });
 
+        //Add new student Dropdown
+
+
+
+
+
+
+
+//MONKEY
         Button backButton = new Button("Go Back");
         backButton.setOnAction(e -> showAdminWelcomeScreen(primaryStage));
 
@@ -187,7 +200,99 @@ public class AdminDashboard {
         primaryStage.setScene(courseScene);
     }
 
+    private void showAddStudentScreen(Stage primaryStage) {
+        Label titleLabel = new Label("Add New Student");
+        ComboBox<String> studentDropdown = new ComboBox<>();
+
+
+        TextField idField = new TextField();
+        idField.setPromptText("Enter Student ID");
+
+        TextField nameField = new TextField();
+        nameField.setPromptText("Enter Student Name");
+
+        TextField addressField = new TextField();
+        addressField.setPromptText("Enter Address");
+
+        TextField phoneField = new TextField();
+        phoneField.setPromptText("Enter Telephone");
+
+        TextField emailField = new TextField();
+        emailField.setPromptText("Enter Email");
+
+        TextField academicLevelField = new TextField();
+        academicLevelField.setPromptText("Enter Academic Level");
+
+        TextField semesterField = new TextField();
+        semesterField.setPromptText("Enter Current Semester");
+
+        PasswordField passwordField = new PasswordField();
+        passwordField.setPromptText("Enter Password");
+
+        TextField coursesField = new TextField();
+        coursesField.setPromptText("Enter Courses (comma-separated)");
+
+        Button addButton = new Button("Add Student");
+        Button backButton = new Button("Back");
+
+        // Add actions for buttons (this part can be modified to suit logic)
+        addButton.setOnAction(e -> {
+            String id = idField.getText();
+            String name = nameField.getText();
+            String address = addressField.getText();
+            String phone = phoneField.getText();
+            String email = emailField.getText();
+            String academicLevel = academicLevelField.getText();
+            String semester = semesterField.getText();
+            String password = passwordField.getText();
+            String[] courses = coursesField.getText().split(",");
+
+            if (id.isEmpty() || name.isEmpty() || email.isEmpty() || password.isEmpty()) {
+                showAlert(Alert.AlertType.ERROR, "Error", "Please fill in all required fields.");
+                return;
+            }
+
+            Student.addStudent(id, name, address, phone, email, academicLevel, semester, password, courses);
+            updateStudentDropdown(studentDropdown); // Refresh dropdown after adding a student
+
+            showAlert(Alert.AlertType.INFORMATION, "Success", "Student added successfully!");
+            showAdminWelcomeScreen(primaryStage); // Navigate back to the dashboard
+
+        });
+
+        backButton.setOnAction(e -> primaryStage.close());
+
+        VBox layout = new VBox(10, titleLabel, idField, nameField, addressField, phoneField, emailField,
+                academicLevelField, semesterField, passwordField, coursesField, addButton, backButton);
+        layout.setAlignment(Pos.CENTER);
+
+        Scene addStudentScene = new Scene(layout, 400, 500);
+        primaryStage.setTitle("Add New Student");
+        primaryStage.setScene(addStudentScene);
+    }
+    private void showAlert(Alert.AlertType type, String title, String content) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+    private void updateStudentDropdown(ComboBox<String> studentDropdown) {
+        if (studentDropdown == null) return; // Prevent null errors
+        studentDropdown.getItems().clear();
+        for (Student student : Student.getAllStudents()) {
+            studentDropdown.getItems().add(student.getName());
+        }
+    }
+
+
+
+
+
 }
+
+
+
 
 
 

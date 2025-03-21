@@ -76,6 +76,15 @@ public class Student extends User {
         // Add more dummy data here
     }
 
+    //METHOD FOR ADMIN TO ADD STUDENTS
+    public static void addStudent(String id, String name, String address, String telephone, String email, String academicLevel, String currentSemester, String password, String[] courses) {
+        Student newStudent = new Student(id, name, address, telephone, email, academicLevel, currentSemester, password, courses);
+        allStudents.add(newStudent);
+    }
+
+
+
+
     //  New method to get student by email and ID
     public static Student getStudentByEmailAndPassword(String email, String password) {
         for (Student student : allStudents) {

@@ -11,7 +11,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-
+import javafx.geometry.Pos;
+import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
 import java.io.IOException;
 
 public class SceneController {
@@ -167,6 +169,81 @@ public class SceneController {
     public void showAdminWelcomeScreen() {
         AdminDashboard adminDashboard = new AdminDashboard(this);
         adminDashboard.showAdminWelcomeScreen(primaryStage);
+    }
+
+
+
+
+
+    //WINDOW SHOWING ADD NEW STUDENT
+
+    public void showAddStudentScene() {
+        Stage addStudentStage = new Stage();
+        addStudentStage.setTitle("Add New Student");
+
+        // Input fields
+        TextField idField = new TextField();
+        idField.setPromptText("Enter Student ID");
+
+        TextField nameField = new TextField();
+        nameField.setPromptText("Enter Student Name");
+
+        TextField addressField = new TextField();
+        addressField.setPromptText("Enter Address");
+
+        TextField phoneField = new TextField();
+        phoneField.setPromptText("Enter Telephone");
+
+        TextField emailField = new TextField();
+        emailField.setPromptText("Enter Email");
+
+        TextField academicLevelField = new TextField();
+        academicLevelField.setPromptText("Enter Academic Level");
+
+        TextField semesterField = new TextField();
+        semesterField.setPromptText("Enter Current Semester");
+
+        PasswordField passwordField = new PasswordField();
+        passwordField.setPromptText("Enter Password");
+
+        TextField coursesField = new TextField();
+        coursesField.setPromptText("Enter Courses (comma-separated)");
+
+        // Buttons
+        Button addButton = new Button("Add Student");
+        Button backButton = new Button("Back");
+
+        // Button Action
+        addButton.setOnAction(e -> {
+            String id = idField.getText();
+            String name = nameField.getText();
+            String address = addressField.getText();
+            String phone = phoneField.getText();
+            String email = emailField.getText();
+            String academicLevel = academicLevelField.getText();
+            String semester = semesterField.getText();
+            String password = passwordField.getText();
+            String[] courses = coursesField.getText().split(",");
+
+            if (id.isEmpty() || name.isEmpty() || email.isEmpty() || password.isEmpty()) {
+                showAlert(Alert.AlertType.ERROR, "Error", "Please fill in all required fields.");
+                return;
+            }
+
+            Student.addStudent(id, name, address, phone, email, academicLevel, semester, password, courses);
+            showAlert(Alert.AlertType.INFORMATION, "Success", "Student added successfully!");
+            addStudentStage.close();
+        });
+
+        backButton.setOnAction(e -> addStudentStage.close());
+
+        // Layout
+        VBox layout = new VBox(10, idField, nameField, addressField, phoneField, emailField, academicLevelField, semesterField, passwordField, coursesField, addButton, backButton);
+        layout.setAlignment(Pos.CENTER);
+
+        Scene addStudentScene = new Scene(layout, 400, 500);
+        addStudentStage.setScene(addStudentScene);
+        addStudentStage.show();
     }
 
     // Show error/success alert
