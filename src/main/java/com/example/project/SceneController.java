@@ -246,7 +246,7 @@ public class SceneController {
         addStudentStage.show();
     }
 
-    // Show error/success alert
+    // Show error/success
     public void showAlert(Alert.AlertType alertType, String title, String content) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);

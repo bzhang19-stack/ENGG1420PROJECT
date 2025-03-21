@@ -260,7 +260,8 @@ public class AdminDashboard {
 
         });
 
-        backButton.setOnAction(e -> primaryStage.close());
+        backButton.setOnAction(e -> showAdminWelcomeScreen(primaryStage)); //go back
+
 
         VBox layout = new VBox(10, titleLabel, idField, nameField, addressField, phoneField, emailField,
                 academicLevelField, semesterField, passwordField, coursesField, addButton, backButton);
