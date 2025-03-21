@@ -1,6 +1,5 @@
-package SceneControllers;
+package FacultySceneControllers;
 
-import UserFiles.Faculty;
 import com.example.project.SceneController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -36,12 +35,15 @@ public class FacultyDashboardController implements Initializable{
         dropdownMenu.getItems().addAll(options); // Populates choice box with options
     }
 
-
     public void getSelection(ActionEvent event) throws IOException {
         String selection = dropdownMenu.getValue();
         menuLabel.setText("You have selected: "+selection);
         switch(selection){
+            case "Dashboard": sceneController.showFacultyDashboard(); break;
+            case "Subject Management": sceneController.showFacultySubjectManagement(); break;
             case "Student Management": sceneController.showFacultyStudentManagement(); break;
+            case "Faculty Management": sceneController.showFacultyProfile(); break;
+            case "Event Management": sceneController.showFacultyEventManagement(); break;
         }
     }
     public void logout(ActionEvent event) throws IOException {

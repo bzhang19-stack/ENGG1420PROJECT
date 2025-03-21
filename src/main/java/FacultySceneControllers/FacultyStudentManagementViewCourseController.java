@@ -1,6 +1,5 @@
-package SceneControllers;
+package FacultySceneControllers;
 
-import UserFiles.Faculty;
 import com.example.project.SceneController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

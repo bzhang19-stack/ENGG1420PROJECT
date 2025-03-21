@@ -1,8 +1,9 @@
 package com.example.project;
 
-import SceneControllers.FacultyDashboardController;
-import SceneControllers.FacultyStudentManagementController;
-import SceneControllers.FacultyStudentManagementViewCourseController;
+import FacultySceneControllers.FacultyDashboardController;
+import FacultySceneControllers.FacultyEventManagementController;
+import FacultySceneControllers.FacultyStudentManagementController;
+import FacultySceneControllers.FacultyStudentManagementViewCourseController;
 import UserFiles.Admin;
 import UserFiles.Faculty;
 import UserFiles.Student;
@@ -76,6 +77,7 @@ public class SceneController {
 
         Scene scene = new Scene(root);
 
+        primaryStage.setTitle("Dashboard");
         primaryStage.setScene(scene);
 
     }
@@ -98,6 +100,7 @@ public class SceneController {
 
         Scene scene = new Scene(root);
 
+        primaryStage.setTitle("Student Management");
         primaryStage.setScene(scene);
     }
 
@@ -112,15 +115,26 @@ public class SceneController {
 
         Scene scene = new Scene(root);
 
+        primaryStage.setTitle(selection+" View");
         primaryStage.setScene(scene);
     }
 
     public void showFacultyProfile() throws IOException{
 
+
     }
 
     public void showFacultyEventManagement() throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("facultyEventManagement.fxml"));
+        Parent root = loader.load();
 
+        FacultyEventManagementController facultyEventManagementController = loader.getController();
+        facultyEventManagementController.setSceneController(this);
+        facultyEventManagementController.setPrimaryStage(primaryStage);
+
+        Scene scene = new Scene(root);
+        primaryStage.setTitle("Event Management");
+        primaryStage.setScene(scene);
     }
 
     // Show welcome screen for admin users
