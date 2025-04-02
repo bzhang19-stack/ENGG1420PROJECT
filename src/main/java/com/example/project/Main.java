@@ -1,5 +1,6 @@
 package com.example.project;
 
+import UserFiles.CSVImport;
 import UserFiles.Admin;
 import UserFiles.Courses;
 import UserFiles.Faculty;
@@ -20,6 +21,13 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
+        CSVImport importer = new CSVImport();
+        CSVImport.importCSV();
+
+        // Now you can access students, faculty, and admins dynamically
+        System.out.println("Loaded " + Student.getAllStudents().size() + " students.");
+        System.out.println("Loaded " + Faculty.getAllFaculty().size() + " faculty members.");
+        System.out.println("Loaded " + Admin.getAllAdmins().size() + " admins.");
         launch(args);
     }
 }

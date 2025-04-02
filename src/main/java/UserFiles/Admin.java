@@ -26,7 +26,7 @@ public class Admin {
     }
 
     public static List<Admin> getAllAdmins() {
-        return allAdmins;
+        return CSVImport.adminList;
     }
 
     // ✅ New method to get admin by username and password

@@ -30,7 +30,9 @@ public class Faculty extends User {
         return officeLocation;
     }
 
-    public static List<Faculty> getAllFaculty() {return allFaculty;}
+    public static List<Faculty> getAllFaculty() {
+        return CSVImport.facultyList;
+    }
 
 
     // Load initial faculty data

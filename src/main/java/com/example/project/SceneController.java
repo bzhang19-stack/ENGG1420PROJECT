@@ -11,9 +11,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import javafx.geometry.Pos;
-import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
+
 import java.io.IOException;
 
 public class SceneController {
@@ -70,7 +68,7 @@ public class SceneController {
 
     // Show welcome screen for student users
     public void showStudentWelcomeScreen() {
-        StudentDashboard studentDashboard = new StudentDashboard(this);
+        StudentDashboard studentDashboard = new StudentDashboard(this, loggedInStudent);
         studentDashboard.showStudentWelcomeScreen(primaryStage);
     }
 

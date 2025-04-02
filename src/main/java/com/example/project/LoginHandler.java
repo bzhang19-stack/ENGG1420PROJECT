@@ -67,13 +67,18 @@ public class LoginHandler {
             String enteredEmail = emailField.getText();
             String enteredPassword = passwordField.getText();
 
-            Student student = Student.getStudentByEmailAndPassword(enteredEmail, enteredPassword);
-            Faculty faculty = Faculty.getFacultyByEmailAndPassword(enteredEmail, enteredPassword);
 
-            if (student != null) {
-                sceneController.setLoggedInStudent(student);
-                sceneController.showAlert(Alert.AlertType.INFORMATION, "Login Success", "Welcome, " + student.getName() + "!");
-                sceneController.showStudentWelcomeScreen();
+            Student loggedInStudent = Student.getStudentByEmailAndPassword(enteredEmail, enteredPassword);
+
+            if (loggedInStudent != null) {
+
+                sceneController.setLoggedInStudent(loggedInStudent);
+
+
+                StudentDashboard studentDashboard = new StudentDashboard(sceneController, loggedInStudent);
+                studentDashboard.showStudentWelcomeScreen(primaryStage);
+
+                sceneController.showAlert(Alert.AlertType.INFORMATION, "Login Success", "Welcome, " + loggedInStudent.getName() + "!");
             } else {
                 sceneController.showAlert(Alert.AlertType.ERROR, "Login Failed", "Incorrect email or password.");
             }
@@ -87,9 +92,8 @@ public class LoginHandler {
 
         primaryStage.setTitle("User Login");
         primaryStage.setScene(loginScene);
-
-
     }
+
 
     public void showFacultySceneLogin(Stage primaryStage) {
         TextField emailField = new TextField();
