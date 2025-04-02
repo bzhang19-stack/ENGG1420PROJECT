@@ -30,21 +30,30 @@ public class SceneController {
     public void showDefaultMenu() {
         Button loginButtonUser = new Button("User login");
         Button loginButtonAdmin = new Button("Admin login");
+        Button loginButtonFaculty = new Button("Faculty login");
 
         loginButtonUser.setOnAction(e -> showLoginSceneUser());
         loginButtonAdmin.setOnAction(e -> showLoginSceneAdmin());
+        loginButtonFaculty.setOnAction(e -> showFacultySceneLogin());
 
-        StackPane defaultMenuLayout = new StackPane(loginButtonAdmin, loginButtonUser);
+        StackPane defaultMenuLayout = new StackPane(loginButtonAdmin, loginButtonUser, loginButtonFaculty);
         Scene defaultMenuScene = new Scene(defaultMenuLayout, 500, 500);
 
         loginButtonAdmin.setTranslateX(0);
         loginButtonAdmin.setTranslateY(50);
+        loginButtonFaculty.setTranslateX(0);
+        loginButtonFaculty.setTranslateY(0);
         loginButtonUser.setTranslateX(0);
-        loginButtonUser.setTranslateY(0);
+        loginButtonUser.setTranslateY(-50);
 
         primaryStage.setTitle("Default Menu");
         primaryStage.setScene(defaultMenuScene);
         primaryStage.show();
+    }
+
+    private void showFacultySceneLogin() {
+        LoginHandler loginHandler = new LoginHandler(this);
+        loginHandler.showFacultySceneLogin(primaryStage);
     }
 
     // Show login scene for admin

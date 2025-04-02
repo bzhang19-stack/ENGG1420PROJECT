@@ -74,14 +74,6 @@ public class LoginHandler {
                 sceneController.setLoggedInStudent(student);
                 sceneController.showAlert(Alert.AlertType.INFORMATION, "Login Success", "Welcome, " + student.getName() + "!");
                 sceneController.showStudentWelcomeScreen();
-            } else if (faculty != null) {
-                sceneController.setLoggedInFaculty(faculty);
-                sceneController.showAlert(Alert.AlertType.INFORMATION, "Login Success", "Welcome, " + faculty.getName() + "!");
-                try {
-                    sceneController.showFacultyDashboard();
-                } catch (Exception ex) {
-                    throw new RuntimeException(ex);
-                }
             } else {
                 sceneController.showAlert(Alert.AlertType.ERROR, "Login Failed", "Incorrect email or password.");
             }
@@ -94,6 +86,42 @@ public class LoginHandler {
         Scene loginScene = new Scene(layout, 300, 200);
 
         primaryStage.setTitle("User Login");
+        primaryStage.setScene(loginScene);
+
+
+    }
+
+    public void showFacultySceneLogin(Stage primaryStage) {
+        TextField emailField = new TextField();
+        emailField.setPromptText("Enter Email");
+
+        PasswordField passwordField = new PasswordField();
+        passwordField.setPromptText("Enter Password");
+
+        Button loginButton = new Button("Login");
+        Button backButton = new Button("Back");
+
+        loginButton.setOnAction(e -> {
+            String enteredEmail = emailField.getText();
+            String enteredPassword = passwordField.getText();
+
+            Faculty faculty = Faculty.getFacultyByEmailAndPassword(enteredEmail, enteredPassword);
+
+            if (faculty != null) {
+                sceneController.setLoggedInFaculty(faculty);
+                sceneController.showAlert(Alert.AlertType.INFORMATION, "Login Success", "Welcome, " + faculty.getName() + "!");
+            } else {
+                sceneController.showAlert(Alert.AlertType.ERROR, "Login Failed", "Incorrect email or password.");
+            }
+        });
+
+        backButton.setOnAction(e -> sceneController.showDefaultMenu());
+
+        VBox layout = new VBox(10, emailField, passwordField, new HBox(10, loginButton, backButton));
+        layout.setAlignment(Pos.CENTER);
+        Scene loginScene = new Scene(layout, 300, 200);
+
+        primaryStage.setTitle("Faculty Login");
         primaryStage.setScene(loginScene);
 
 
