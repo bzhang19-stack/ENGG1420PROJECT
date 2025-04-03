@@ -19,6 +19,7 @@ public class SceneController {
     private Student loggedInStudent;
     private Admin loggedInAdmin;
     public static Faculty loggedInFaculty;
+    public static String selection; //Needed for faculty course and subject view
 
     public SceneController(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -131,13 +132,13 @@ public class SceneController {
     }
 
     public void showFacultyStudentManagementViewCourse(String selection) throws IOException{
+        SceneController.selection = selection;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("facultyStudentManagementViewCourse.fxml"));
         Parent root = loader.load();
 
         FacultyStudentManagementViewCourseController facultyStudentManagementViewCourseController = loader.getController();
         facultyStudentManagementViewCourseController.setSceneController(this);
         facultyStudentManagementViewCourseController.setPrimaryStage(primaryStage);
-        facultyStudentManagementViewCourseController.setSelection(selection);
 
         Scene scene = new Scene(root);
 
@@ -146,13 +147,14 @@ public class SceneController {
     }
 
     public void showFacultySubjectManagementViewCourse(String selection) throws IOException{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("facultyStudentManagementViewCourse.fxml"));
+        SceneController.selection = selection;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("facultySubjectManagementViewCourse.fxml"));
         Parent root = loader.load();
 
-        FacultyStudentManagementViewCourseController facultyStudentManagementViewCourseController = loader.getController();
-        facultyStudentManagementViewCourseController.setSceneController(this);
-        facultyStudentManagementViewCourseController.setPrimaryStage(primaryStage);
-        facultyStudentManagementViewCourseController.setSelection(selection);
+        FacultySubjectManagementViewCourseController facultySubjectManagementViewCourseController = loader.getController();
+        System.out.println(selection+"4");
+        facultySubjectManagementViewCourseController.setSceneController(this);
+        facultySubjectManagementViewCourseController.setPrimaryStage(primaryStage);
 
         Scene scene = new Scene(root);
 

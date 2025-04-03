@@ -66,19 +66,35 @@ public class Courses {
     public static ArrayList<Courses> getAllCourses(){ return courses;}
 
     public static String[] getAllSubjects() {
-        // Create an ArrayList to store the subject names with section numbers
         List<String> subjectNamesWithSections = new ArrayList<>();
 
-        // Iterate over all courses and collect the subject names with section numbers
         for (Courses course : courses) {
-            // Append the section number to the subject name
-            String subjectWithSection = course.getSubjectName() + " - " + course.getSection();
+            String subjectWithSection = (course.getSubjectName().trim() + " - " + course.getSection().trim());
             subjectNamesWithSections.add(subjectWithSection);
         }
 
-        // Convert the list to an array and return it
         return subjectNamesWithSections.toArray(new String[0]);
     }
+
+
+    public static Courses getCourseBySubjectWithSection(String subjectWithSection) {
+        System.out.println("Looking for: " + subjectWithSection);
+
+        for (Courses course : courses) {
+            String courseIdentifier = (course.getSubjectName() + " - " + course.getSection()).trim();
+            System.out.println("Comparing with: " + courseIdentifier);
+
+            if (courseIdentifier.equals(subjectWithSection.trim())) {
+                System.out.println("Match found: " + courseIdentifier);
+                return course; // Return matching course
+            }
+        }
+
+        System.out.println("No match found for: " + subjectWithSection);
+        return null; // Return null if no course is found
+    }
+
+
 
 
 
