@@ -1,5 +1,6 @@
 package FacultySceneControllers;
 
+import UserFiles.Courses;
 import com.example.project.SceneController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -35,18 +36,20 @@ public class FacultySubjectManagementController implements Initializable {
     public void setSceneController(SceneController sceneController){ this.sceneController = sceneController;}
 
     private final String[] options = {"Dashboard","Subject Management","Course Management","Student Management","Faculty Management","Event Management"}; // Options in choice box;
+    private String[] subjects = Courses.getAllSubjects();
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1){
+
         dropdownMenu.getItems().addAll(options); // Populates choice box with options
-        listView.getItems().addAll(SceneController.loggedInFaculty.getCourses()); // Populates list view with courses
+        listView.getItems().addAll(subjects); // Populates list view with subjects
 
         listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
                 String selection = listView.getSelectionModel().getSelectedItem();
                 try {
-                    sceneController.showFacultyStudentManagementViewCourse(selection);
+                    sceneController.showFacultySubjectManagementViewCourse(selection);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -64,14 +67,6 @@ public class FacultySubjectManagementController implements Initializable {
             case "Course Management": sceneController.showFacultyCourseManagement(); break;
         }
     }
-    public void courseManagementBack(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("facultyStudentManagement.fxml"));
-        Parent root = loader.load();
-        primaryStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        primaryStage.setScene(scene);
-    }
-
     public void logout(ActionEvent event) throws IOException {
         sceneController.showDefaultMenu();
     }

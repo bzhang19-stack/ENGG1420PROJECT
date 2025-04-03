@@ -145,6 +145,21 @@ public class SceneController {
         primaryStage.setScene(scene);
     }
 
+    public void showFacultySubjectManagementViewCourse(String selection) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("facultyStudentManagementViewCourse.fxml"));
+        Parent root = loader.load();
+
+        FacultyStudentManagementViewCourseController facultyStudentManagementViewCourseController = loader.getController();
+        facultyStudentManagementViewCourseController.setSceneController(this);
+        facultyStudentManagementViewCourseController.setPrimaryStage(primaryStage);
+        facultyStudentManagementViewCourseController.setSelection(selection);
+
+        Scene scene = new Scene(root);
+
+        primaryStage.setTitle(selection+" View");
+        primaryStage.setScene(scene);
+    }
+
     public void showFacultyProfile() throws IOException{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("facultyProfile.fxml"));
         Parent root = loader.load();
