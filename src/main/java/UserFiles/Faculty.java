@@ -65,8 +65,8 @@ public class Faculty extends User {
                 courses[i] = courses[i].trim(); //Trims courses in array
 
             allFaculty.add(new Faculty(id,name,email,degree,researchInterest,officeLocation,password,courses)); //Adds faculty to arrayList
-
         }
+        System.out.println("✅ Successfully loaded " + allFaculty.size() + " faculty from CSV.");
     }
 
 

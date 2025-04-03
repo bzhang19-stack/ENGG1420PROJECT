@@ -86,19 +86,20 @@ public class Student extends User {
 
         for (String[] data : studentsData) {
 
+            if(data.length==0) break; //Stops when there are no more students
 
-            String id = data[0].trim(); System.out.println(id);
-            String name = data[1].trim(); System.out.println(name);
-            String address = data[2].trim(); System.out.println(address);
-            String telephone = data[3].trim(); System.out.println(telephone);
-            String email = data[4].trim(); System.out.println(email);
-            String academicLevel = data[5].trim(); System.out.println(academicLevel);
-            String currentSemester = data[6].trim(); System.out.println(currentSemester);
-            String profilePhoto = data[7].trim(); System.out.println(profilePhoto);
-            String course = data[8].trim(); System.out.println(course);
-            String thesisTitle = data[9].trim(); System.out.println(thesisTitle);
-            String progress = data[10].trim(); System.out.println(progress);
-            String password = data[11].trim(); System.out.println(password);
+            String id = data[0].trim();
+            String name = data[1].trim();
+            String address = data[2].trim();
+            String telephone = data[3].trim();
+            String email = data[4].trim();
+            String academicLevel = data[5].trim();
+            String currentSemester = data[6].trim();
+            String profilePhoto = data[7].trim();
+            String course = data[8].trim();
+            String thesisTitle = data[9].trim();
+            String progress = data[10].trim();
+            String password = data[11].trim();
 
             String[] courses = course.split("/");
 

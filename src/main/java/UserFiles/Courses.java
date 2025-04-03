@@ -120,5 +120,6 @@ public class Courses {
             courses.add(new Courses(courseCode,subjectCode,name,sectionNumber,num,lectureTime,finalExamInfo,finalExamRoom,finalExamInstructor));
 
         }
+        System.out.println("✅ Successfully loaded " + courses.size() + " courses from CSV.");
     }
 }

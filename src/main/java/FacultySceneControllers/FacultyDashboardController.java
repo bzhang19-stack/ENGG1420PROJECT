@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -18,6 +19,10 @@ public class FacultyDashboardController implements Initializable{
     private ChoiceBox<String> dropdownMenu;
     @FXML
     private Button logoutButton;
+    @FXML
+    private TextArea eventsField;
+    @FXML
+    private TextArea coursesField;
 
     private SceneController sceneController;
     private Stage primaryStage;
@@ -31,6 +36,12 @@ public class FacultyDashboardController implements Initializable{
     @Override
     public void initialize(URL arg0, ResourceBundle arg1){
         dropdownMenu.getItems().addAll(options); // Populates choice box with options
+
+        for(int i=0; i<SceneController.loggedInFaculty.getCourses().length; i++) //Iterates through every course of the faculty member
+            coursesField.appendText("Course "+(i+1)+": "+SceneController.loggedInFaculty.getCourses()[i]+"\n"); //Adds courses to textArea
+
+
+
     }
 
     public void getSelection(ActionEvent event) throws IOException {
