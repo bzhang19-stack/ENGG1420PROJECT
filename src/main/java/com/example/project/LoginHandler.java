@@ -10,6 +10,8 @@ import javafx.scene.layout.VBox;
 import javafx.geometry.Pos;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class LoginHandler {
     private SceneController sceneController;
 
@@ -114,6 +116,11 @@ public class LoginHandler {
             if (faculty != null) {
                 sceneController.setLoggedInFaculty(faculty);
                 sceneController.showAlert(Alert.AlertType.INFORMATION, "Login Success", "Welcome, " + faculty.getName() + "!");
+                try {
+                    sceneController.showFacultyDashboard();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
             } else {
                 sceneController.showAlert(Alert.AlertType.ERROR, "Login Failed", "Incorrect email or password.");
             }

@@ -53,13 +53,13 @@ public class FacultySubjectManagementController implements Initializable {
             }
         });
     }
-    public void getSelection(ActionEvent event) throws IOException {
+    public void getMenuSelection(ActionEvent event) throws IOException {
         String selection = dropdownMenu.getValue();
         switch(selection){
             case "Dashboard": sceneController.showFacultyDashboard(); break;
-            //case "Subject Management": sceneController.showFacultySubjectManagement(); break;
+            case "Subject Management": sceneController.showFacultySubjectManagement(); break;
             case "Student Management": sceneController.showFacultyStudentManagement(); break;
-            //case "Faculty Management": sceneController.showFacultyProfile(); break;
+            case "Faculty Management": sceneController.showFacultyProfile(); break;
             case "Event Management": sceneController.showFacultyEventManagement(); break;
             case "Course Management": sceneController.showFacultyCourseManagement(); break;
         }

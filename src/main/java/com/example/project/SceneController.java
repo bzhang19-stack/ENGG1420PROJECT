@@ -88,7 +88,7 @@ public class SceneController {
 
     }
 
-    /*public void showFacultySubjectManagement() throws IOException{
+    public void showFacultySubjectManagement() throws IOException{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("facultySubjectManagement.fxml"));
         Parent root = loader.load();
 
@@ -100,7 +100,7 @@ public class SceneController {
 
         primaryStage.setTitle("Subject Management");
         primaryStage.setScene(scene);
-    }*/
+    }
 
     public void showFacultyCourseManagement() throws IOException{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("facultyCourseManagement.fxml"));
@@ -145,19 +145,33 @@ public class SceneController {
         primaryStage.setScene(scene);
     }
 
-    /*public void showFacultyProfile() throws IOException{
+    public void showFacultyProfile() throws IOException{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("facultyProfile.fxml"));
         Parent root = loader.load();
 
-        FacultyProfileController facultyProfileController = loader.load();
+        FacultyProfileController facultyProfileController = loader.getController();
         facultyProfileController.setSceneController(this);
         facultyProfileController.setPrimaryStage(primaryStage);
 
         Scene scene = new Scene(root);
 
-        primaryStage.setTitle("Profile View");
+        primaryStage.setTitle("Profile");
         primaryStage.setScene(scene);
-    }*/
+    }
+
+    public void showFacultyPasswordChange() throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("facultyPasswordChange.fxml"));
+        Parent root = loader.load();
+
+        FacultyProfilePasswordController facultyProfilePasswordController = loader.getController();
+        facultyProfilePasswordController.setSceneController(this);
+        facultyProfilePasswordController.setPrimaryStage(primaryStage);
+
+        Scene scene = new Scene(root);
+
+        primaryStage.setTitle("Password Change");
+        primaryStage.setScene(scene);
+    }
 
     public void showFacultyEventManagement() throws IOException{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("facultyEventManagement.fxml"));
