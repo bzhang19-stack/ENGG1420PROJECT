@@ -21,10 +21,6 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        // Now you can access students, faculty, and admins dynamically
-        System.out.println("Loaded " + Student.getAllStudents().size() + " students.");
-        System.out.println("Loaded " + Faculty.getAllFaculty().size() + " faculty members.");
-        System.out.println("Loaded " + Admin.getAllAdmins().size() + " admins.");
         launch(args);
     }
 }

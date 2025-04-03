@@ -179,9 +179,8 @@ public class AdminDashboard {
             String selectedCourse = courseDropdown.getValue();
             for (Courses course : courses) {
                 if (selectedCourse.equals(course.getSubjectName())) {
-                    courseTextArea.setText(String.format("Subject Code: %s\nName: %s\nSection: %s\nCapacity: %d\nSchedule: %s\nTime: %s\nFinal Exam Date: %s\nFinal Exam Time: %s\nFinal Exam Room: %s\nFinal Exam Instructor: %s",
-                            course.getSubjectCode(), course.getSubjectName(), course.getSection(), course.getCapacity(),
-                            course.getDays(), course.getTime(), course.getFinalExamDate(), course.getFinalExamTime(), course.getFinalExamRoom(),
+                    courseTextArea.setText(String.format("Subject Code: %s\nName: %s\nSection: %s\nCapacity: %s\nFinal Exam Date/Time: %s\nFinal Exam Time: %s\nFinal Exam Room: %s\nFinal Exam Instructor: %s",
+                            course.getSubjectCode(), course.getSubjectName(), course.getSection(), course.getCapacity(), course.getTime(), course.getFinalExamInfo(), course.getFinalExamRoom(),
                             course.getFinalExamInstructor()));
                     break;
                 }
