@@ -34,6 +34,7 @@ public class CSVImport {
                 }
 
                 String[] data = line.split(","); // Splitting based on commas... each column becomes an entry in the array
+
                 dataList.add(data); //Adds information to the data list
             }
         } catch (IOException e) {
