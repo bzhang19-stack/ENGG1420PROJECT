@@ -77,7 +77,7 @@ public class Student extends User {
 //        allStudents.add(new Student("S20250010", "Jennifer Davis", "555 Oakwood Pl", "555-3456", "davis@example.edu", "Graduate", "Fall 2025", "default123", new String[]{"course1", "course2"}));
 //        // Add more dummy data here
         CSVImport importer = new CSVImport(); // Create an instance of CSVImport
-        List<String[]> studentsData = importer.getCSVData("UMS_Data(Students).csv"); // Call the method on the instance
+        List<String[]> studentsData = importer.getCSVData("UMS_Data(Students ).csv"); // Call the method on the instance
 
         if (studentsData.isEmpty()) {
             System.out.println("⚠️ No student data found in CSV.");
@@ -85,20 +85,25 @@ public class Student extends User {
         }
 
         for (String[] data : studentsData) {
-            if (data.length < 9) continue; // Skip invalid rows
 
-            String type = data[0].trim(); // First column should be "Student"
-            if (!type.equalsIgnoreCase("Student")) continue; // Ignore non-student rows
 
-            String id = data[1].trim();
-            String name = data[2].trim();
-            String address = data[3].trim();
-            String telephone = data[4].trim();
-            String email = data[5].trim();
-            String academicLevel = data[6].trim();
-            String currentSemester = data[7].trim();
-            String password = data[8].trim();
-            String[] courses = data.length > 9 ? data[9].split(";") : new String[]{}; // Handle courses
+            String id = data[0].trim(); System.out.println(id);
+            String name = data[1].trim(); System.out.println(name);
+            String address = data[2].trim(); System.out.println(address);
+            String telephone = data[3].trim(); System.out.println(telephone);
+            String email = data[4].trim(); System.out.println(email);
+            String academicLevel = data[5].trim(); System.out.println(academicLevel);
+            String currentSemester = data[6].trim(); System.out.println(currentSemester);
+            String profilePhoto = data[7].trim(); System.out.println(profilePhoto);
+            String course = data[8].trim(); System.out.println(course);
+            String thesisTitle = data[9].trim(); System.out.println(thesisTitle);
+            String progress = data[10].trim(); System.out.println(progress);
+            String password = data[11].trim(); System.out.println(password);
+
+            String[] courses = course.split("/");
+
+            for(int i=0; i< courses.length; i++)
+                courses[i] = courses[i].trim();
 
             Student student = new Student(id, name, address, telephone, email, academicLevel, currentSemester, password, courses);
             allStudents.add(student);

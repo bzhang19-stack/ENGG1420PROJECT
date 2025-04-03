@@ -21,9 +21,6 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        CSVImport importer = new CSVImport();
-        CSVImport.importCSV();
-
         // Now you can access students, faculty, and admins dynamically
         System.out.println("Loaded " + Student.getAllStudents().size() + " students.");
         System.out.println("Loaded " + Faculty.getAllFaculty().size() + " faculty members.");
