@@ -78,14 +78,11 @@ public class Courses {
 
 
     public static Courses getCourseBySubjectWithSection(String subjectWithSection) {
-        System.out.println("Looking for: " + subjectWithSection);
 
         for (Courses course : courses) {
             String courseIdentifier = (course.getSubjectName() + " - " + course.getSection()).trim();
-            System.out.println("Comparing with: " + courseIdentifier);
 
             if (courseIdentifier.equals(subjectWithSection.trim())) {
-                System.out.println("Match found: " + courseIdentifier);
                 return course; // Return matching course
             }
         }

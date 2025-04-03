@@ -39,6 +39,30 @@ public class Events {
     public String[] getRegisteredStudents(){return registeredStudents;}
     public static List<Events> getEvents(){return allEvents;}
 
+    public static String[] getAllEventNames(){
+        List<Events> currentEvents = Events.getEvents();
+        List<String> eventNames = new ArrayList<>();
+
+        for(Events theseEvents : currentEvents){
+            eventNames.add(theseEvents.getName());
+        }
+
+        return eventNames.toArray(new String[0]); //Converts list of names to array of names
+    }
+
+    public static Events getEventByName(String name){
+        for (Events event : allEvents) {
+            String eventIdentifier = event.getName();
+
+            if (eventIdentifier.equals(name))
+                return event; // Return matching course
+
+        }
+
+        System.out.println("No match found for: " + name);
+        return null; // Return null if no course is found
+    }
+
     public static void initializeEvents(){
 
         CSVImport importer = new CSVImport(); // Create an instance of CSVImport

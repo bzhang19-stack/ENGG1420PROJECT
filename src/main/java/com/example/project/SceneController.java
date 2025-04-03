@@ -203,6 +203,22 @@ public class SceneController {
         primaryStage.setScene(scene);
     }
 
+    public void showFacultyEventManagementViewEvent(String selection) throws IOException{
+        SceneController.selection = selection;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("facultyEventManagementViewEvent.fxml"));
+        Parent root = loader.load();
+
+        FacultyEventManagementViewEventController facultyEventManagementViewEventController = loader.getController();
+        System.out.println(selection+"4");
+        facultyEventManagementViewEventController.setSceneController(this);
+        facultyEventManagementViewEventController.setPrimaryStage(primaryStage);
+
+        Scene scene = new Scene(root);
+
+        primaryStage.setTitle(selection+" View");
+        primaryStage.setScene(scene);
+    }
+
     // Show welcome screen for admin users
     public void showAdminWelcomeScreen() {
         AdminDashboard adminDashboard = new AdminDashboard(this);
