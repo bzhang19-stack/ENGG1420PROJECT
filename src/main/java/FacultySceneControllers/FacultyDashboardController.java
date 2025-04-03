@@ -1,5 +1,6 @@
 package FacultySceneControllers;
 
+import UserFiles.Events;
 import com.example.project.SceneController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,7 +10,8 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
-
+import java.util.ArrayList;
+import java.util.List;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -36,12 +38,16 @@ public class FacultyDashboardController implements Initializable{
     @Override
     public void initialize(URL arg0, ResourceBundle arg1){
         dropdownMenu.getItems().addAll(options); // Populates choice box with options
+        List<Events> eventsList = Events.getEvents(); //Creates list of events
+        int ctr=1; //Counter for formatting purposes
 
         for(int i=0; i<SceneController.loggedInFaculty.getCourses().length; i++) //Iterates through every course of the faculty member
             coursesField.appendText("Course "+(i+1)+": "+SceneController.loggedInFaculty.getCourses()[i]+"\n"); //Adds courses to textArea
 
-
-
+        for(Events events : eventsList) { //Iterates through each instance of Event
+            eventsField.appendText("Event: " + ctr + ": " + events.getName() + "\n"); //Adds each event name to eventsField TextArea
+            ctr++; //Counter for formatting purposes
+        }
     }
 
     public void getSelection(ActionEvent event) throws IOException {

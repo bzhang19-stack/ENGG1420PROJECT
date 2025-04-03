@@ -37,6 +37,7 @@ public class Events {
     public String getCost(){return cost;}
     public String getHeaderImage(){return headerImage;}
     public String[] getRegisteredStudents(){return registeredStudents;}
+    public static List<Events> getEvents(){return allEvents;}
 
     public static void initializeEvents(){
 
